@@ -23,7 +23,7 @@ const ShineyButton = ({ text }) => {
       }}
       className="px-2 group  py-3 hover:bg-SecondaryColor rounded-md relative radial-gradient transition duration-400 md:w-[200px] w-[120px]"
     >
-      <span className="text-[#FFFF] ] group-hover:tracking-widest  transition duration-400 text-lg md:text-xl font-Nunito tracking-wide font-bold h-full  block relative linear-mask">
+      <span className="text-[#FFFF]  group-hover:tracking-widest  transition duration-400 text-lg md:text-xl font-Nunito tracking-wide font-bold h-full  block relative linear-mask">
         {text}
       </span>
       <span className="block absolute inset-0 rounded-md p-px linear-overlay" />

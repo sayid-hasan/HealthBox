@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import Nav from "../../../shared/Navbar/Navbar";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   return (
@@ -8,7 +8,9 @@ const Home = () => {
         <title>HealthBox</title>
       </Helmet>
       {/* body  */}
-      <div></div>
+      <div>
+        <Banner></Banner>
+      </div>
     </div>
   );
 };

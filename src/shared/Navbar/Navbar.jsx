@@ -5,6 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/user.png";
 import ShineyButton from "../../components/ShineyButton/ShineyButton";
+import cartImg from "../../assets/images/cartIcon.png";
 
 const Nav = () => {
   const { user, loading, logOutUser } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const Nav = () => {
         <NavLink
           to="/"
           className={`   
-          flex items-center px-4 text-TextColor rounded-none uppercase text-base  duration-75 !focus:outline-none !focus:ring-0 !active:bg-transparent `}
+          flex items-center px-4 h-full text-TextColor rounded-none uppercase text-base  duration-75 !focus:outline-none !focus:ring-0 !active:bg-transparent `}
         >
           Home
         </NavLink>
@@ -31,7 +32,7 @@ const Nav = () => {
         <NavLink
           to="/allFoods"
           className={` 
-          flex items-center px-4 text-TextColor rounded-none uppercase text-base  duration-75  `}
+          flex items-center h-full px-4 text-TextColor rounded-none uppercase text-base  duration-75  `}
         >
           Shop
         </NavLink>
@@ -41,9 +42,12 @@ const Nav = () => {
         {" "}
         <NavLink
           to="/gallery"
-          className={` flex items-center px-4 text-TextColor rounded-none duration-75 uppercase text-base  `}
+          className={` flex items-center px-4 h-full text-TextColor rounded-none duration-75 uppercase text-base  `}
         >
-          Gallery
+          <img
+            src={cartImg}
+            className="w-12 h-12 object-contain object-center"
+          ></img>
         </NavLink>
       </li>
     </>
@@ -101,7 +105,7 @@ const Nav = () => {
   return (
     <div>
       <div className="navbar p-0  text-TextColor items-center md:items-center font-Nunito">
-        <div className="navbar-start">
+        <div className="justify-start  grow">
           <div className="dropdown">
             <div
               tabIndex={0}
@@ -144,7 +148,7 @@ const Nav = () => {
         <div className="navbar-center hidden md:flex ">
           <ul className="menu menu-horizontal px-1  ">{navlinks}</ul>
         </div>
-        <div className="navbar-end z-[4]">{buttonProfile}</div>
+        <div className="justify-end  z-[4]">{buttonProfile}</div>
       </div>
       <ToastContainer></ToastContainer>
     </div>

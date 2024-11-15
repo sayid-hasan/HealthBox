@@ -1,7 +1,7 @@
 :root {
   --radial-gradient-background: 3, 51, 143;
   --solid-color-background: 63, 113, 209;
-  --overlay-color: 255, 255, 255;
+  --overlay-color: 222, 233, 255;
 }
 
 .radial-gradient {
