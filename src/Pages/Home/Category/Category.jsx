@@ -26,7 +26,7 @@ const Category = () => {
   console.log("top categories", categories);
   if (isLoading)
     return (
-      <div className="grid lg:mt-16 mt-10 mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid max-w-7xl mx-auto lg:mt-16 mt-10 mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <CategoryCardSkeleton></CategoryCardSkeleton>
         <CategoryCardSkeleton></CategoryCardSkeleton>
         <CategoryCardSkeleton></CategoryCardSkeleton>

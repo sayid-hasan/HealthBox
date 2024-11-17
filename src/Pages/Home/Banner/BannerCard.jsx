@@ -15,7 +15,7 @@ const BannerCard = ({ banner }) => {
           alt=""
         />
       </div>
-      <div className=" flex justify-start items-center grow bg-black bg-opacity-20  rounded-lg">
+      <div className=" flex justify-start items-center grow  rounded-lg">
         <div className="text-left flex flex-col gap-5">
           <motion.div
             variants={fadeIn("down", 0.1)}

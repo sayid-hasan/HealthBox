@@ -39,7 +39,7 @@ const DiscountSliderCard = ({ slider }) => {
           initial={"hidden"}
           whileInView={"show"}
           viewport={{ once: false, amount: 0.7 }}
-          className="flex items-center justify-between px-6 py-3 bg-gray-900"
+          className="flex items-center justify-between px-6 py-3 "
         >
           <h1 className="mx-3 font-frescha tracking-[2px] text-SecondaryColor text-lg font-font-oswald font-semibold ">
             {category}

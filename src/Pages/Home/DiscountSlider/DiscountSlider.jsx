@@ -14,6 +14,7 @@ import useAxios from "../../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import DiscountSliderCard from "./DiscountSliderCard";
 import SwipperBtns from "../Banner/SwipperBtns";
+import DiscountSliderSkeleton from "./DiscountSliderSkeleton";
 
 const DiscountSlider = () => {
   const axiosNonSecure = useAxios();
@@ -23,7 +24,7 @@ const DiscountSlider = () => {
   };
   const {
     data: discountedMedicine = [],
-    // isLoading,
+    isLoading,
     isError,
     error,
   } = useQuery({
@@ -35,6 +36,15 @@ const DiscountSlider = () => {
     console.log(error);
   }
   console.log("discountedMedicine", discountedMedicine);
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto grid lg:mt-16 mt-10 mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DiscountSliderSkeleton></DiscountSliderSkeleton>
+        <DiscountSliderSkeleton></DiscountSliderSkeleton>
+        <DiscountSliderSkeleton></DiscountSliderSkeleton>
+      </div>
+    );
+  }
   return (
     <div className="max-w-7xl mx-auto my-7 md:my-14 ">
       <div className="text-center mb-4 space-y-2">
