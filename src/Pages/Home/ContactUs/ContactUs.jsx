@@ -2,8 +2,19 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import ContactUsSekelton from "./ContactUsSekelton";
 import { FaArrowRight } from "react-icons/fa";
+import Lottie from "lottie-react";
+import animationData from "../../../lotties/ContactUs.json";
 
 const ContactUs = () => {
+  // lottie options
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const { user, loading } = useContext(AuthContext);
   if (loading) {
     return (
@@ -14,7 +25,7 @@ const ContactUs = () => {
   }
   return (
     <div>
-      <div className="flex my-10 px-5 md:items-start justify-center flex-col md:flex-row max-w-7xl  mx-auto rounded-lg  font-Nunito md:px-6  bg-PrimaryColor py-4  ">
+      <div className="flex my-10 px-5 items-center justify-center flex-col md:flex-row max-w-7xl  mx-auto rounded-lg  font-Nunito md:px-6  bg-PrimaryColor py-4  ">
         <div className="flex flex-col justify-between bg-PrimaryColor items-center w-full md:w-1/2 text-center md:text-left ">
           <div className="space-y-2">
             <h2 className="text-4xl text-SecondaryColor font-bold leading-tight lg:text-5xl text-center">
@@ -24,18 +35,24 @@ const ContactUs = () => {
               Send us any thought or any suggestion
             </div>
           </div>
-          <img
-            src={"https://i.ibb.co/pwBWprg/boy-with-Laptop.jpg"}
-            alt=""
-            className="p-6 h-52 md:h-64"
-          />
+          <div className="p-6 h-[23rem] md:h-[27rem] object-contain object-center overflow-hidden">
+            <Lottie
+              options={defaultOptions}
+              animationData={animationData}
+              height={200}
+              width={200}
+            ></Lottie>
+          </div>
         </div>
         <form
           noValidate=""
           className=" flex-col flex md:w-1/2 w-full grow space-y-6"
         >
           <div>
-            <label htmlFor="name" className="text-sm">
+            <label
+              htmlFor="name"
+              className="text-base font-bold text-SecondaryColor "
+            >
               Full name
             </label>
             <input
@@ -47,7 +64,10 @@ const ContactUs = () => {
             />
           </div>
           <div>
-            <label htmlFor="email" className="text-sm">
+            <label
+              htmlFor="email"
+              className="text-base font-bold text-SecondaryColor "
+            >
               Email
             </label>
             <input
@@ -58,7 +78,10 @@ const ContactUs = () => {
             />
           </div>
           <div>
-            <label htmlFor="message" className="text-sm">
+            <label
+              htmlFor="message"
+              className="text-base font-bold text-SecondaryColor "
+            >
               Message
             </label>
             <textarea
