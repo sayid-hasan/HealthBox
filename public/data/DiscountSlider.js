@@ -1,0 +1,67 @@
+export const discounts = [
+  {
+    itemGenericName: "Ibuprofen",
+    name: "Ibuprofen 200mg Tablets",
+    image: "https://i.imgur.com/xqQHuC8.jpg",
+    description:
+      "Pain relief medication for headaches, muscle aches, and minor injuries.",
+    sellerEmail: "seller1@example.com",
+    category: "Tablet",
+    companyName: "PharmaCo",
+    itemMassUnit: "200 mg",
+    perUnitPrice: 120,
+    discountPercentage: 15,
+  },
+  {
+    itemGenericName: "Diphenhydramine",
+    name: "Diphenhydramine Syrup",
+    image: "https://i.imgur.com/fpTXIVG.jpg",
+    description:
+      "Antihistamine used for allergies, hay fever, and cold symptoms.",
+    sellerEmail: "seller2@example.com",
+    category: "Syrup",
+    companyName: "HealthPlus",
+    itemMassUnit: "10 ml",
+    perUnitPrice: 80,
+    discountPercentage: 10,
+  },
+  {
+    itemGenericName: "Vitamin C",
+    name: "Vitamin C 500mg Capsules",
+    image: "https://i.imgur.com/Ps5dIHQ.jpg",
+    description:
+      "Essential vitamin supplement to boost immunity and improve skin health.",
+    sellerEmail: "seller3@example.com",
+    category: "Capsule",
+    companyName: "VitaLife",
+    itemMassUnit: "500 mg",
+    perUnitPrice: 150,
+    discountPercentage: 20,
+  },
+  {
+    itemGenericName: "Hydrocortisone",
+    name: "Hydrocortisone 2ml Injection",
+    image: "https://i.imgur.com/sEivfY5.jpg",
+    description:
+      "Topical anti-inflammatory cream for skin irritation and allergic reactions.",
+    sellerEmail: "seller4@example.com",
+    category: "Injection",
+    companyName: "MedCare",
+    itemMassUnit: "2 ml",
+    perUnitPrice: 250,
+    discountPercentage: 25,
+  },
+  {
+    itemGenericName: "Aloe Vera Gel",
+    name: "Aloe Vera 100ml Gel",
+    image: "https://i.imgur.com/SJ20qnS.jpg",
+    description:
+      "Natural skincare gel for soothing burns, rashes, and moisturizing.",
+    sellerEmail: "seller5@example.com",
+    category: "Skin Care",
+    companyName: "NatureMed",
+    itemMassUnit: "100 ml",
+    perUnitPrice: 100,
+    discountPercentage: 30,
+  },
+];

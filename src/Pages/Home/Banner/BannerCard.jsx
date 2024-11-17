@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 
 const BannerCard = ({ banner }) => {
   return (
-    <div className="flex px-4 py-10 md:py-12 flex-row-reverse max-w-7xl mx-auto ">
-      <div className=" font-Nunito rounded-lg md:w-[500px] md:h-[500px] w-[300px] object-cover object-center overflow-hidden">
+    <div className="flex px-4 py-7 md:py-12 flex-row-reverse max-w-7xl mx-auto ">
+      <div className=" font-Nunito rounded-t-lg md:w-[500px]  md:h-[500px] w-[300px] object-cover object-center overflow-hidden">
         {" "}
         <img
           src={banner?.image}
