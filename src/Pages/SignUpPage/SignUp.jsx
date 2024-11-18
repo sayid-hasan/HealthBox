@@ -10,9 +10,12 @@ import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash, FaSignInAlt } from "react-icons/fa";
 import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
 import { IKContext, IKUpload } from "imagekitio-react";
+import SocialLogin from "../../shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const [imageUrl, setImageUrl] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
   // get authentication params for image uplaod in imagekit from server
   const authenticator = async () => {
     try {
@@ -38,22 +41,39 @@ const SignUp = () => {
 
   const onError = (err) => {
     console.log("Error", err);
+    setProgress(0);
+    setUploading(false);
+    toast.error("sorry, looks like something went wrong");
   };
 
   const onSuccess = (res) => {
     console.log("Success", res);
+    setProgress(100);
+    setUploading(false);
+    toast.success("image uploaded successfully");
     setImageUrl(res?.url);
+  };
+  const onUploadStart = (evt) => {
+    console.log("Start", evt);
+    if (evt) {
+      setUploading(true);
+    }
+  };
+  const onUploadProgress = (progress) => {
+    setUploading(false);
+    console.log("Progress", progress);
+    const percentage = Math.round((progress?.loaded / progress.total) * 98);
+    setProgress(percentage);
   };
 
   const [showPass, setShowPass] = useState(false);
   const {
-    setLoading,
     user,
     setUser,
+    setLoading,
     createUser,
+
     updateUserProfile,
-    signInWithFacebook,
-    signInWithGoogle,
   } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -65,8 +85,16 @@ const SignUp = () => {
   } = useForm();
   const onSubmit = (data) => {
     const { email, name, password, role } = data;
+    if (!imageUrl) {
+      toast.error("Please upload an image before submitting!");
+      return;
+    }
 
-    console.log("signUp page", email, name, password, role, imageUrl);
+    const UserInfo = {
+      ...data,
+      imageUrl,
+    };
+    console.log("signUp page", UserInfo);
     const from = "/";
     // creating user
     // createUser(email, password)
@@ -87,39 +115,6 @@ const SignUp = () => {
     //   });
   };
 
-  // social login
-  const handleGoogleLogin = () => {
-    signInWithGoogle()
-      .then((result) => {
-        //const user = result.user;
-        toast.success(`welcome back ${result.user.displayName}`);
-        // redirect to location
-        navigate(location?.state || "/");
-        //console.log(user);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        console.log(error);
-        setLoading(false);
-      });
-  };
-  // facebook login
-  const handleFacebookLogin = () => {
-    signInWithFacebook()
-      .then((result) => {
-        //const user = result.user;
-        toast.success(`welcome back ${result.user.displayName}`);
-        // redirect to location
-        navigate(location?.state || "/");
-        //console.log(user);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        console.log(error);
-        setLoading(false);
-      });
-  };
-  console.log("SignInpage", imageUrl);
   // lottie options
   const defaultOptions = {
     loop: true,
@@ -136,7 +131,7 @@ const SignUp = () => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [watch]);
+  }, [watch, imageUrl]);
   return (
     <div
       className={`bg-PrimaryColor  flex justify-center items-center text-white  bg-cover bg-center min-h-screen  font-Nunito  w-full    `}
@@ -150,7 +145,7 @@ const SignUp = () => {
       <Helmet>
         <title>Register your account</title>
       </Helmet>
-      <div className="lg:max-w-5xl md:max-w-3xl max-w-md rounded-lg w-full md:bg-PrimaryColor/70 backdrop-blur-md mx-auto overflow-x-hidden font-firaSans my-5 md:my-10  ">
+      <div className="lg:max-w-5xl md:max-w-3xl max-w-md rounded-lg w-full md:bg-PrimaryColor/70 backdrop-blur-md mx-auto overflow-x-hidden font-firaSans my-5 md:my-10 relative ">
         <div className="flex w-full gap-10 md:p-5 p-2 flex-col-reverse md:flex-row  md:justify- items-stretch ">
           {" "}
           <div className="w-full my-5  md:w-1/2  space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
@@ -261,6 +256,8 @@ const SignUp = () => {
                       required={true}
                       onError={onError}
                       onSuccess={onSuccess}
+                      onUploadStart={onUploadStart}
+                      onUploadProgress={onUploadProgress}
                       useUniqueFileName={true}
                       isPrivateFile={false}
                       className="file-input bg-PrimaryColor focus:outline-none text-SecondaryColor w-full max-w-xs"
@@ -287,10 +284,13 @@ const SignUp = () => {
                 <select
                   name="role"
                   id="role"
+                  {...register("role", {
+                    required: true,
+                  })}
                   className="select w-full max-w-full bg-PrimaryColor text-black focus:outline-none"
                 >
                   <option disabled selected>
-                    Pick your favorite Simpson
+                    Select the role
                   </option>
                   <option className="font-bold text-black">User</option>
                   <option className="font-bold text-black">Seller</option>
@@ -319,60 +319,11 @@ const SignUp = () => {
                   Login with social accounts
                 </div>
               </div>
+
               <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
             </div>
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={() => {
-                  handleGoogleLogin();
-                }}
-                aria-label="Log in with Google"
-                className="p-3 rounded-sm"
-              >
-                <div className="h-12 aspect-square rounded-full border-[1px] flex justify-center items-center border-SecondaryColor hover:bg-SecondaryColor hover:border-white text-SecondaryColor hover:scale-105 hover:text-white transition duration-300">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 32 32"
-                    className="w-[30px] h-[30px] fill-current"
-                  >
-                    <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z"></path>
-                  </svg>
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  handleFacebookLogin();
-                }}
-                aria-label="Log in with GitHub"
-                className="p-3 rounded-sm"
-              >
-                <div className="h-12 aspect-square rounded-full border-[1px] flex justify-center items-center border-SecondaryColor hover:bg-SecondaryColor hover:border-white text-SecondaryColor hover:scale-105 hover:text-white transition duration-300">
-                  <svg
-                    height="30px"
-                    width="30px"
-                    version="1.1"
-                    id="Layer_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                    viewBox="-337 273 123.5 256"
-                    xmlSpace="preserve"
-                    className="fill-current"
-                  >
-                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      {" "}
-                      <path d="M-260.9,327.8c0-10.3,9.2-14,19.5-14c10.3,0,21.3,3.2,21.3,3.2l6.6-39.2c0,0-14-4.8-47.4-4.8c-20.5,0-32.4,7.8-41.1,19.3 c-8.2,10.9-8.5,28.4-8.5,39.7v25.7H-337V396h26.5v133h49.6V396h39.3l2.9-38.3h-42.2V327.8z"></path>{" "}
-                    </g>
-                  </svg>
-                </div>
-              </button>
-            </div>
+            {/* social login */}
+            <SocialLogin></SocialLogin>
 
             <p className="text-xs text-center text sm:px-6 ">
               Already have an account?
@@ -395,6 +346,33 @@ const SignUp = () => {
             ></Lottie>
           </div>
         </div>
+        {/* progress bar */}
+        {progress !== 0 && progress !== 100 && (
+          <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
+            {" "}
+            <div
+              className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
+              style={{
+                "--value": progress,
+                "--size": "12rem",
+                "--thickness": "10px",
+              }}
+              role="progressbar"
+            >
+              {progress}%
+            </div>
+          </div>
+        )}
+        {/* loading */}
+        {uploading && (
+          <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
+            {" "}
+            <div
+              className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
+              role=""
+            ></div>
+          </div>
+        )}
 
         {/* <ToastContainer></ToastContainer> */}
       </div>

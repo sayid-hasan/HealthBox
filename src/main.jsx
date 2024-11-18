@@ -7,6 +7,7 @@ import router from "./Route/Routes.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./Provider/AuthProvider.jsx";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
