@@ -11,11 +11,14 @@ import { FaEye, FaEyeSlash, FaSignInAlt } from "react-icons/fa";
 import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
 import { IKContext, IKUpload } from "imagekitio-react";
 import SocialLogin from "../../shared/SocialLogin/SocialLogin";
+import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const axiosNonSecure = useAxios();
   // get authentication params for image uplaod in imagekit from server
   const authenticator = async () => {
     try {
@@ -70,7 +73,7 @@ const SignUp = () => {
   const {
     user,
     setUser,
-    setLoading,
+
     createUser,
 
     updateUserProfile,
@@ -81,6 +84,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -90,29 +94,62 @@ const SignUp = () => {
       return;
     }
 
-    const UserInfo = {
-      ...data,
-      imageUrl,
-    };
-    console.log("signUp page", UserInfo);
     const from = "/";
     // creating user
-    // createUser(email, password)
-    //   .then((res) => {
-    //     toast.success("registered successfully");
-    //     console.log(res.user);
+    createUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+        updateUserProfile(name, imageUrl).then(() => {
+          // create user entry in database
+          const userInfo = {
+            email,
+            name,
+            password,
+            role: role.toLowerCase(),
+            imageUrl,
+          };
+          console.log("singup page", userInfo);
+          axiosNonSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "sign up successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              setUser({ ...user, displayName: name, photoURL: imageUrl });
 
-    //     updateUserProfile(name, image)
-    //       .then(() => {})
-    //       .catch((err) => console.log(err));
+              navigate(from);
+              window.location.reload();
+            } else if (res.data.message) {
+              Swal.fire({
+                position: "top",
+                icon: "error",
+                title: res.data.message,
+                showConfirmButton: false,
+                timer: 1500,
+              });
 
-    //     setUser({ ...user, displayName: name, photoURL: image });
+              navigate(from);
+            }
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        reset();
+        Swal.fire({
+          position: "top",
+          icon: "error",
 
-    //     navigate(from);
-    //   })
-    //   .catch(() => {
-    //     toast.error("user exist already");
-    //   });
+          title: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from);
+      });
   };
 
   // lottie options
@@ -354,7 +391,7 @@ const SignUp = () => {
               className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
               style={{
                 "--value": progress,
-                "--size": "12rem",
+                "--size": "7rem",
                 "--thickness": "10px",
               }}
               role="progressbar"

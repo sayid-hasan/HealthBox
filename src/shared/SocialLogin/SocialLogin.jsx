@@ -3,23 +3,46 @@ import { FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../../Hooks/useAxios";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
   const { signInWithGithub, signInWithFacebook, signInWithGoogle, setLoading } =
     useContext(AuthContext);
+  const from = location.state?.from || "/";
+  const axiosNonSecure = useAxios();
   // social login
+
+  const saveUserNavigate = (result) => {
+    const userInfo = {
+      email: result?.user?.email,
+      name: result?.user?.displayName,
+      role: "user",
+      imageUrl: result.user?.photoURL,
+    };
+    console.log("after third party social login", result.user);
+    axiosNonSecure.post("/users", userInfo).then((res) => {
+      console.log("social login", res.data);
+      //const user = result.user;
+      if (res.data?.insertedId) {
+        toast.success(`welcome back ${result.user.displayName}`);
+        setLoading(false);
+        navigate(from);
+      } else {
+        toast.error("couldn't logged in");
+      }
+    });
+  };
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then((result) => {
-        //const user = result.user;
-        toast.success(`welcome back ${result.user.displayName}`);
         // redirect to location
-        navigate(location?.state || "/");
+        saveUserNavigate(result);
         //console.log(user);
       })
       .catch((error) => {
         // Handle Errors here.
+        toast.error(`could not logged in ${error.message}`);
         console.log(error);
         setLoading(false);
       });
@@ -28,14 +51,12 @@ const SocialLogin = () => {
   const handleFacebookLogin = () => {
     signInWithFacebook()
       .then((result) => {
-        //const user = result.user;
-        toast.success(`welcome back ${result.user.displayName}`);
         // redirect to location
-        navigate(location?.state || "/");
-        //console.log(user);
+        saveUserNavigate(result);
       })
       .catch((error) => {
         // Handle Errors here.
+        toast.error(`could not logged in ${error.message}`);
         console.log(error);
         setLoading(false);
       });
@@ -44,14 +65,12 @@ const SocialLogin = () => {
   const handleGithubLogin = () => {
     signInWithGithub()
       .then((result) => {
-        //const user = result.user;
-        toast.success(`welcome back ${result.user.displayName}`);
         // redirect to location
-        navigate(location?.state || "/");
-        //console.log(user);
+        saveUserNavigate(result);
       })
       .catch((error) => {
         // Handle Errors here.
+        toast.error(`could not logged in ${error.message}`);
         console.log(error);
         setLoading(false);
       });
