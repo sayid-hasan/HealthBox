@@ -30,7 +30,7 @@ const Nav = () => {
       <li className="flex">
         {" "}
         <NavLink
-          to="/allFoods"
+          to="/shop"
           className={` 
           flex items-center h-full px-4 text-TextColor rounded-none uppercase text-base  duration-75  `}
         >

@@ -11,6 +11,26 @@ const SocialLogin = () => {
     useContext(AuthContext);
   const from = location.state?.from || "/";
   const axiosNonSecure = useAxios();
+
+  // github login email with access token
+  const getEmailFromGitHub = async (accessToken) => {
+    const response = await fetch("https://api.github.com/user/emails", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const emails = await response.json();
+      // GitHub returns an array of emails. The primary email should be the first one.
+      const primaryEmail = emails.find((email) => email.primary).email;
+      console.log("Primary Email from GitHub:", primaryEmail);
+    } else {
+      console.error("Failed to fetch emails from GitHub.");
+    }
+  };
+
   // social login
 
   const saveUserNavigate = (result) => {
@@ -64,8 +84,9 @@ const SocialLogin = () => {
   // github login
   const handleGithubLogin = () => {
     signInWithGithub()
-      .then((result) => {
+      .then(async (result) => {
         // redirect to location
+        await getEmailFromGitHub(result.accessToken);
         saveUserNavigate(result);
       })
       .catch((error) => {

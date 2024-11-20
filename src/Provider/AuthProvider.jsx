@@ -19,6 +19,7 @@ export const AuthContext = createContext();
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 const githubProvider = new GithubAuthProvider();
+
 const AuthProvider = ({ children }) => {
   const axiosNonSecure = useAxios();
   const [user, setUser] = useState();
@@ -55,16 +56,18 @@ const AuthProvider = ({ children }) => {
   };
   // LOGIN WITH facebook
   const signInWithFacebook = () => {
+    facebookProvider.addScope("email");
     setLoading(true);
     return signInWithPopup(auth, facebookProvider);
   };
 
   // LOGIN WITH GOOGLE
   const signInWithGithub = () => {
+    githubProvider.addScope("email");
     setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
-  // update propfile
+  // update profile
 
   const updateUserProfile = (username, image) => {
     return updateProfile(auth.currentUser, {
