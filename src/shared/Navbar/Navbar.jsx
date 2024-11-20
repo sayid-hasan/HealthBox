@@ -10,9 +10,9 @@ import cartImg from "../../assets/images/cartIcon.png";
 const Nav = () => {
   const { user, loading, logOutUser } = useContext(AuthContext);
   const handlelogOutUser = () => {
-    logOutUser().then(
-      toast.info("Logged Out Successfully!").catch((err) => console.log(err))
-    );
+    logOutUser()
+      .then(toast.info("Logged Out Successfully!"))
+      .catch((err) => toast.error("Couldn't log out", err.message));
   };
   const navlinks = (
     <>

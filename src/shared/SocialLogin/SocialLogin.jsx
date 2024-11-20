@@ -12,25 +12,6 @@ const SocialLogin = () => {
   const from = location.state?.from || "/";
   const axiosNonSecure = useAxios();
 
-  // github login email with access token
-  const getEmailFromGitHub = async (accessToken) => {
-    const response = await fetch("https://api.github.com/user/emails", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    if (response.ok) {
-      const emails = await response.json();
-      // GitHub returns an array of emails. The primary email should be the first one.
-      const primaryEmail = emails.find((email) => email.primary).email;
-      console.log("Primary Email from GitHub:", primaryEmail);
-    } else {
-      console.error("Failed to fetch emails from GitHub.");
-    }
-  };
-
   // social login
 
   const saveUserNavigate = (result) => {
@@ -39,17 +20,18 @@ const SocialLogin = () => {
       name: result?.user?.displayName,
       role: "user",
       imageUrl: result.user?.photoURL,
+      uid: result?.user?.uid,
     };
     console.log("after third party social login", result.user);
     axiosNonSecure.post("/users", userInfo).then((res) => {
       console.log("social login", res.data);
       //const user = result.user;
       if (res.data?.insertedId) {
-        toast.success(`welcome back ${result.user.displayName}`);
+        toast.success(`welcome  ${result.user.displayName}`);
         setLoading(false);
         navigate(from);
-      } else {
-        toast.error("couldn't logged in");
+      } else if (res.data.message === "Email already exists") {
+        toast.info(`Welcome back ${result.user.displayName}`);
       }
     });
   };
@@ -86,7 +68,7 @@ const SocialLogin = () => {
     signInWithGithub()
       .then(async (result) => {
         // redirect to location
-        await getEmailFromGitHub(result.accessToken);
+
         saveUserNavigate(result);
       })
       .catch((error) => {

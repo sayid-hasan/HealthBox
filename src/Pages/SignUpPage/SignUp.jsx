@@ -99,6 +99,8 @@ const SignUp = () => {
     createUser(email, password)
       .then((res) => {
         console.log(res.user);
+        const uid = res.user?.uid;
+
         updateUserProfile(name, imageUrl).then(() => {
           // create user entry in database
           const userInfo = {
@@ -107,18 +109,13 @@ const SignUp = () => {
             password,
             role: role.toLowerCase(),
             imageUrl,
+            uid,
           };
           console.log("singup page", userInfo);
           axiosNonSecure.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               reset();
-              Swal.fire({
-                position: "top",
-                icon: "success",
-                title: "sign up successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              toast.success(`User created successfully`);
               setUser({ ...user, displayName: name, photoURL: imageUrl });
 
               navigate(from);
