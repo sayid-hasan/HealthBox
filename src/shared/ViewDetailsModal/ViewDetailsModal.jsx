@@ -20,7 +20,7 @@ const ViewDetailsModal = ({
     (price - (price * discountPercentage) / 100).toFixed(2)
   );
   return (
-    <div className="absolute w-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 ">
+    <div className="absolute backdrop-blur-sm bg-white/80 w-full top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 ">
       {" "}
       <div className="    max-w-sm md:max-w-2xl cursor-pointer transition transform hover:scale-105 duration-300  mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <motion.img

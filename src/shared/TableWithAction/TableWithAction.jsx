@@ -1,5 +1,5 @@
 import { FaCartArrowDown, FaEye } from "react-icons/fa";
-import bgImg from "../../assets/images/tableBg.jpg";
+
 import { useState } from "react";
 
 import useAxios from "../../Hooks/useAxios";
@@ -40,16 +40,8 @@ const TableWithAction = ({ rows }) => {
 
   return (
     /* table */
-    <div
-      className={`bg-PrimaryColor relative  flex justify-center items-center text-white  bg-cover bg-center min-h-screen w-full  font-Nunito     `}
-      style={{
-        backgroundImage: `url(${bgImg})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="overflow-scroll backdrop-blur-sm  grow flex-1 md:overflow-y-auto  md:overflow-x-auto max-w-7xl  mx-auto rounded-t-lg mt-3 bg-PrimaryColor/90 rounded-lg">
+    <div className={`relative w-full `}>
+      <div className="overflow-scroll  grow flex-1 md:overflow-y-auto  md:overflow-x-auto max-w-7xl  mx-auto rounded-t-lg mt-3 rounded-lg">
         <table className="table space-y-3  rounded-t-lg ">
           {/* head */}
           <thead className="bg-SecondaryColor bg-opacity-70 text-white font-Nunito h-auto  py-3 md:py-6">
