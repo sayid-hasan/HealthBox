@@ -5,6 +5,8 @@ import { MdCancel } from "react-icons/md";
 import { FaCartArrowDown } from "react-icons/fa6";
 
 const ViewDetailsModal = ({
+  handleAddToCart,
+  medicineId,
   itemGenericName,
   name,
   image,
@@ -115,15 +117,21 @@ const ViewDetailsModal = ({
             >
               <BtnWithICon
                 text="cancel"
-                icon={<MdCancel></MdCancel>}
+                icon={
+                  <MdCancel className="group-hover:scale-150 transition duration-200"></MdCancel>
+                }
+                classname={`hover:bg-white hover:text-SecondaryColor hover:border-SecondaryColor group`}
               ></BtnWithICon>
             </button>
 
             {/* send feedback */}
-            <button>
+            <button onClick={() => handleAddToCart(medicineId)}>
               <BtnWithICon
                 text="Add to Cart"
-                icon={<FaCartArrowDown></FaCartArrowDown>}
+                icon={
+                  <FaCartArrowDown className="group-hover:scale-150 transition duration-200"></FaCartArrowDown>
+                }
+                classname={`hover:bg-white hover:text-SecondaryColor hover:border-SecondaryColor group`}
               ></BtnWithICon>
             </button>
           </div>

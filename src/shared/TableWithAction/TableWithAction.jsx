@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import ViewDetailsModal from "../ViewDetailsModal/ViewDetailsModal";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const TableWithAction = ({ rows }) => {
   const [isModal, setIsModal] = useState(false);
@@ -18,8 +19,24 @@ const TableWithAction = ({ rows }) => {
     const { data } = await axiosNonSecure.get(`/medicine/${id}`);
     return data;
   };
+  // fetch productinfo into cart database collection
+  const fetchProductIntoCart = async (productInfo) => {
+    try {
+      const response = await axiosNonSecure.post("/cart", productInfo);
 
-  // Handle button actions
+      if (response.status === 201) {
+        toast.success("Product added to the cart successfully!");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.info("Product already exists in the cart.");
+      } else {
+        toast.error("Failed to add product to the cart. Please try again.");
+      }
+    }
+  };
+
+  // Handle ViewDetails button actions
   const handleViewDetails = async (id) => {
     setIsModal(true);
 
@@ -60,6 +77,7 @@ const TableWithAction = ({ rows }) => {
       userUid: user?.uid,
     };
     console.log(productInfo);
+    await fetchProductIntoCart(productInfo);
   };
 
   return (
@@ -120,6 +138,7 @@ const TableWithAction = ({ rows }) => {
         <ViewDetailsModal
           setIsModal={setIsModal}
           itemGenericName={modalData?.itemGenericName}
+          medicineId={modalData?._id}
           name={modalData?.name}
           image={modalData?.image}
           description={modalData?.description}
@@ -128,6 +147,7 @@ const TableWithAction = ({ rows }) => {
           discountPercentage={modalData?.discountPercentage}
           price={modalData?.price}
           stock={modalData?.stock}
+          handleAddToCart={handleAddToCart}
         ></ViewDetailsModal>
       )}
     </div>
