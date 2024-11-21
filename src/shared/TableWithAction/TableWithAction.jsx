@@ -1,16 +1,23 @@
 import { FaCartArrowDown, FaEye } from "react-icons/fa";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import useAxios from "../../Hooks/useAxios";
 import ViewDetailsModal from "../ViewDetailsModal/ViewDetailsModal";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const TableWithAction = ({ rows }) => {
   const [isModal, setIsModal] = useState(false);
-
+  const { user } = useContext(AuthContext);
   const axiosNonSecure = useAxios();
   const [modalData, setModalData] = useState(null); // Store modal data here
   const [isLoading, setIsLoading] = useState(false); // Handle loading state
+
+  // getData for addtocart
+  const getProduct = async (id) => {
+    const { data } = await axiosNonSecure.get(`/medicine/${id}`);
+    return data;
+  };
 
   // Handle button actions
   const handleViewDetails = async (id) => {
@@ -34,8 +41,25 @@ const TableWithAction = ({ rows }) => {
     // get data for modal
   };
 
-  const handleAddToCart = (id) => {
-    alert(`Item with _id: ${id} added to cart`);
+  //get Price for discount exist
+  const getPrice = async (discountPercentage, price) => {
+    const newPrice = (await discountPercentage)
+      ? parseFloat((price - (price * discountPercentage) / 100).toFixed(2))
+      : price;
+    return newPrice;
+  };
+  const handleAddToCart = async (id) => {
+    // alert(`Item with _id: ${id} added to cart, ${}`);
+    const productData = await getProduct(id);
+    const { name, companyName, price, discountPercentage } = productData;
+    const productInfo = {
+      name,
+      companyName,
+      price: await getPrice(discountPercentage, price),
+      quantity: 1,
+      userUid: user?.uid,
+    };
+    console.log(productInfo);
   };
 
   return (
