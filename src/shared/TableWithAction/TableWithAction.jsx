@@ -68,13 +68,16 @@ const TableWithAction = ({ rows }) => {
   const handleAddToCart = async (id) => {
     // alert(`Item with _id: ${id} added to cart, ${}`);
     const productData = await getProduct(id);
-    const { name, companyName, price, discountPercentage } = productData;
+    const { name, companyName, price, discountPercentage, image, stock } =
+      productData;
     const productInfo = {
       name,
       companyName,
       price: await getPrice(discountPercentage, price),
       quantity: 1,
       userUid: user?.uid,
+      image,
+      stock,
     };
     console.log(productInfo);
     await fetchProductIntoCart(productInfo);
@@ -82,7 +85,7 @@ const TableWithAction = ({ rows }) => {
 
   return (
     /* table */
-    <div className={`relative w-full `}>
+    <div className={`relative w-full  `}>
       <div className="overflow-scroll  grow flex-1 md:overflow-y-auto  md:overflow-x-auto max-w-7xl  mx-auto rounded-t-lg mt-3 rounded-lg">
         <table className="table space-y-3  rounded-t-lg ">
           {/* head */}

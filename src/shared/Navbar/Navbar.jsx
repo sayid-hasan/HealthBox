@@ -41,12 +41,12 @@ const Nav = () => {
       <li className="flex">
         {" "}
         <NavLink
-          to="/gallery"
+          to="/cart"
           className={` flex items-center px-4 h-full text-TextColor rounded-none duration-75 uppercase text-base  `}
         >
           <img
             src={cartImg}
-            className="w-12 h-12 object-contain object-center"
+            className="md:w-12 md:h-12 w-7 h-7 object-contain object-center"
           ></img>
         </NavLink>
       </li>
