@@ -1,32 +1,50 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
+import useAxios from "../../Hooks/useAxios";
 
 const CartPageContent = ({ product }) => {
   const [quantity, setQuantity] = useState(product.quantity || 1); // Initialize quantity with item's current quantity
   const [totalAmount, setTotalAmount] = useState(product.price * quantity); // Calculate initial total amount
-
-  // Handle quantity change
-  const handleQuantityChange = (action) => {
+  const axiosNonSecure = useAxios();
+  const handleQuantityChange = async (action) => {
     let newQuantity = quantity;
 
-    // Update quantity based on action
+    // Calculate the potential new quantity based on the action
     if (action === "increase") {
       if (newQuantity < product.stock) {
         newQuantity++;
       } else {
         toast.info("Cannot exceed stock limit.");
+        return; // Exit if the stock limit is exceeded
       }
     } else if (action === "decrease") {
       if (newQuantity > 1) {
         newQuantity--;
       } else {
         toast.info("Minimum quantity is 1.");
+        return; // Exit if quantity is already at the minimum
       }
     }
 
-    // Update the state with new quantity and recalculated total amount
-    setQuantity(newQuantity);
-    setTotalAmount(product.price * newQuantity);
+    // Send the update to the server
+    try {
+      const response = await axiosNonSecure.patch(`/cart/${product._id}`, {
+        quantity: newQuantity,
+      });
+
+      if (response.status === 200) {
+        // Update the UI only after the server is successfully updated
+        setQuantity(newQuantity);
+        setTotalAmount(product.price * newQuantity);
+        toast.success("Cart updated successfully!");
+      } else {
+        toast.error("Failed to update the cart.");
+      }
+    } catch (error) {
+      console.error("Error updating cart:", error);
+      toast.error("Error updating cart.");
+    }
   };
 
   return (

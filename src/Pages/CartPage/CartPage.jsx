@@ -17,7 +17,7 @@ const CartPage = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: "cartItems",
+    queryKey: ["cartItems", user?.uid],
     queryFn: async () => {
       const { data } = await axiosNonSecure.get(`/cart/${user?.uid}`);
       return data;
