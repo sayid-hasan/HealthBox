@@ -2,8 +2,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import useAxios from "../../Hooks/useAxios";
-
-const CartPageContent = ({ product }) => {
+import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
+import { MdCancel } from "react-icons/md";
+const CartPageContent = ({ product, refetch }) => {
   const [quantity, setQuantity] = useState(product.quantity || 1); // Initialize quantity with item's current quantity
   const [totalAmount, setTotalAmount] = useState(product.price * quantity); // Calculate initial total amount
   const axiosNonSecure = useAxios();
@@ -36,7 +37,9 @@ const CartPageContent = ({ product }) => {
       if (response.status === 200) {
         // Update the UI only after the server is successfully updated
         setQuantity(newQuantity);
+
         setTotalAmount(product.price * newQuantity);
+        refetch();
         toast.success("Cart updated successfully!");
       } else {
         toast.error("Failed to update the cart.");
@@ -46,9 +49,24 @@ const CartPageContent = ({ product }) => {
       toast.error("Error updating cart.");
     }
   };
+  // Handle delete cart item
+  const handleDeleteItem = async (id) => {
+    try {
+      const response = await axiosNonSecure.delete(`/cart/${id}`);
+      if (response.data.success) {
+        refetch();
+        toast.success("Item deleted successfully");
+      } else {
+        toast.error("Failed to delete item");
+      }
+    } catch (error) {
+      toast.error("Error deleting item");
+      console.error(error);
+    }
+  };
 
   return (
-    <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+    <div className="space-y-4 my-2 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
       <div className="shrink-0 md:order-1">
         <img
           className="h-20 w-20 rounded-lg "
@@ -131,27 +149,15 @@ const CartPageContent = ({ product }) => {
         <div className="flex items-center gap-4">
           {/* remove button */}
           <button
+            onClick={() => handleDeleteItem(product?._id)}
             type="button"
-            className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+            className="inline-flex items-center text-sm 0"
           >
-            <svg
-              className="me-1.5 h-5 w-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18 17.94 6M18 18 6.06 6"
-              />
-            </svg>
-            Remove
+            <BtnWithICon
+              text={`remove`}
+              classname={`mt-0 hover:border-[#b20000] bg-[#B20000] !py- rounded-full min-w-[150px] !px-4 hover:bg-PrimaryColor hover:text-[#B20000] md:py-0`}
+              icon={<MdCancel></MdCancel>}
+            ></BtnWithICon>
           </button>
         </div>
       </div>
