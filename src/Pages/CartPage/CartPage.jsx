@@ -10,11 +10,14 @@ import CartPageContent from "./CartPageContent";
 import { motion } from "framer-motion";
 import fadeIn from "../../Utility/varient";
 import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const axiosNonSecure = useAxios();
   const { user, loading } = useContext(AuthContext);
   const [subTotal, setSubTotal] = useState(0);
+  const navigate = useNavigate();
+  // total Price
   const totalPrice = subTotal + 50 + Math.round(subTotal * 0.05);
   const {
     data: cartItems = [],
@@ -29,6 +32,9 @@ const CartPage = () => {
       return data;
     },
   });
+
+  // stripe payment  gateway integration
+
   useEffect(() => {
     const newSubTotal = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -134,7 +140,17 @@ const CartPage = () => {
                     </dl>
                   </div>
 
-                  <button className="flex justify-center grow w-full">
+                  <button
+                    onClick={() =>
+                      navigate("/checkout", {
+                        state: {
+                          totalPrice,
+                          cartItems,
+                        },
+                      })
+                    }
+                    className="flex justify-center grow w-full"
+                  >
                     <BtnWithICon
                       text={`Checkout`}
                       icon={<IoBagCheckOutline></IoBagCheckOutline>}

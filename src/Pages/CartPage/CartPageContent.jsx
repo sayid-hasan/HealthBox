@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+
 import useAxios from "../../Hooks/useAxios";
 import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
 import { MdCancel } from "react-icons/md";
