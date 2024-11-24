@@ -163,7 +163,7 @@ const CartPage = () => {
                       {" "}
                       or{" "}
                     </span>{" "}
-                    <button>
+                    <button onClick={() => navigate("/shop")}>
                       <BtnWithICon
                         text={`Continue Shopping`}
                         icon={<FaArrowRight></FaArrowRight>}

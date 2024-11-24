@@ -8,6 +8,7 @@ import ShopPage from "../Pages/ShopPage/ShopPage";
 import CategoryDetailsPage from "../Pages/CategoryDetailsPage/CategoryDetailsPage";
 import CartPage from "../Pages/CartPage/CartPage";
 import Checkout from "../Pages/Checkout/Checkout";
+import SuccessPayment from "../Pages/Checkout/SuccessPayment";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout></Checkout>,
+      },
+      {
+        path: "/payment-success",
+        element: <SuccessPayment></SuccessPayment>,
       },
     ],
   },
