@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Box,
   Divider,
   Drawer,
@@ -11,7 +12,14 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { CiCalendar, CiMenuBurger } from "react-icons/ci";
-import { FaBook, FaHome, FaList, FaSchool, FaUsers } from "react-icons/fa";
+import {
+  FaBars,
+  FaBook,
+  FaHome,
+  FaList,
+  FaSchool,
+  FaUsers,
+} from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
@@ -19,6 +27,7 @@ import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import { ToastContainer } from "react-toastify";
 
 const drawerWidth = 280;
 const Dashboard = () => {
@@ -27,14 +36,14 @@ const Dashboard = () => {
 
   // TDO : get admin value from database
   const { user } = useContext(AuthContext);
-  //   const [isAdmin] = useAdmin();
-  //   const [isSeller] = useSeller();
+  const [isAdmin] = useAdmin();
+  const [isSeller] = useSeller();
   // const isAdmin = true;
   // const isSeller = true;
-  // refetch();
-  //   console.log(isAdmin, isSeller);
-  const isSeller = false;
-  const isAdmin = true;
+  //   refetch();
+  console.log(isAdmin, isSeller);
+  //   const isSeller = false;
+  //   const isAdmin = true;
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -339,6 +348,30 @@ const Dashboard = () => {
                 </ListItemButton>
               </NavLink>
             </ListItem>
+            {/*manageappliedApplications */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/managecategory"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaBook></FaBook>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    Manage Category
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
             {/* Add schoalrship */}
             <ListItem>
               <NavLink
@@ -507,9 +540,13 @@ const Dashboard = () => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{}}
+            className="hover:bg-SecondaryColor"
+            sx={{
+              padding: "10px",
+              backgroundColor: "#DEE9FF",
+            }}
           >
-            <CiMenuBurger />
+            <FaBars className="  text-SecondaryColor text-3xl hover:text-white" />
           </IconButton>
         </Toolbar>
 
@@ -529,7 +566,7 @@ const Dashboard = () => {
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: { xs: "block", sm: "none" },
+              display: { xs: "block", sm: "none", md: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
@@ -563,6 +600,7 @@ const Dashboard = () => {
           <Outlet></Outlet>
         </Box>
       </Box>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

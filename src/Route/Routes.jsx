@@ -13,6 +13,7 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import ManageCategory from "../Pages/Dashboard/ManageCategory/ManageCategory";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "manageusers",
         element: <ManageUsers></ManageUsers>,
+      },
+      {
+        path: "managecategory",
+        element: <ManageCategory></ManageCategory>,
       },
     ],
   },
