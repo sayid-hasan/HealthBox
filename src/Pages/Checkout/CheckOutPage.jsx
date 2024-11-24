@@ -210,6 +210,7 @@ const CheckoutPage = ({ amount }) => {
           navigate("/payment-success", {
             state: {
               amount,
+              transactionId: paymentIntent?.id,
             },
           });
         }
