@@ -38,6 +38,18 @@ const Nav = () => {
         </NavLink>
       </li>
 
+      {user && (
+        <li className="flex">
+          {" "}
+          <NavLink
+            to="/dashboard"
+            className={` flex items-center px-4 h-full text-TextColor rounded-none duration-75 uppercase text-base  `}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+
       <li className="flex">
         {" "}
         <NavLink

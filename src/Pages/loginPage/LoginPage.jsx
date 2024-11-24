@@ -16,7 +16,7 @@ const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-  const { loginUser, setLoading } = useContext(AuthContext);
+  const { loginUser, setLoading, user } = useContext(AuthContext);
 
   const {
     register,
@@ -24,8 +24,10 @@ const LoginPage = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     const { email, password } = data;
+
     loginUser(email, password)
       .then((res) => {
         console.log(res.user);
@@ -62,6 +64,9 @@ const LoginPage = () => {
       subscription.unsubscribe();
     };
   }, [watch]);
+  if (user) {
+    return;
+  }
   return (
     <div
       className={`bg-PrimaryColor  flex justify-center items-center text-white  bg-cover bg-center min-h-screen  font-Nunito  w-full    `}

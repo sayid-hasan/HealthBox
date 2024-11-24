@@ -9,6 +9,10 @@ import CategoryDetailsPage from "../Pages/CategoryDetailsPage/CategoryDetailsPag
 import CartPage from "../Pages/CartPage/CartPage";
 import Checkout from "../Pages/Checkout/Checkout";
 import SuccessPayment from "../Pages/Checkout/SuccessPayment";
+import Dashboard from "../Layout/Dashboard/Dashboard";
+import PrivateRoute from "./PrivateRoute";
+import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -52,14 +56,22 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    // element: (
-    //   <PrivateRoute>
-    //     <Dashboard></Dashboard>
-    //   </PrivateRoute>
-    // ),
-    // errorElement: <ErrorPage></ErrorPage>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       // dashboard api need to relocate after creating dashboard layout
+      {
+        path: "admin",
+        element: <AdminProfile></AdminProfile>,
+      },
+      {
+        path: "manageusers",
+        element: <ManageUsers></ManageUsers>,
+      },
     ],
   },
 ]);

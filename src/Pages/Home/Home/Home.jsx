@@ -4,11 +4,8 @@ import Category from "../Category/Category";
 import DiscountSlider from "../DiscountSlider/DiscountSlider";
 import ContactUs from "../ContactUs/ContactUs";
 import Reviews from "../Reviews/Reviews";
-import useSeller from "../../../Hooks/useSeller";
 
 const Home = () => {
-  const [isSeller] = useSeller();
-  console.log(isSeller);
   return (
     <div>
       <Helmet>
