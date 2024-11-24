@@ -71,6 +71,7 @@ const TableWithAction = ({ rows }) => {
     const { name, companyName, price, discountPercentage, image, stock } =
       productData;
     const productInfo = {
+      medicineId: id,
       name,
       companyName,
       price: await getPrice(discountPercentage, price),

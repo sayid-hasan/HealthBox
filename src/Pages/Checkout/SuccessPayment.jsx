@@ -94,8 +94,8 @@ const SuccessPayment = () => {
 
       {/* designed invoice */}
       {/* <!-- component --> */}
-      <section className=" py-20">
-        <div className="max-w-2xl mx-auto py-0 md:py-16">
+      <section className=" py-5">
+        <div className="max-w-2xl mx-auto py-0 md:py-3">
           <article className="shadow-none md:shadow-md md:rounded-md overflow-hidden">
             <div className="md:rounded-b-md  bg-white">
               <div className="p-9 border-b border-gray-200">

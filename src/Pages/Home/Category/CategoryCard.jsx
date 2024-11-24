@@ -1,9 +1,26 @@
 import { motion } from "framer-motion";
 import fadeIn from "../../../Utility/varient";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../../../Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const CategoryCard = ({ category }) => {
-  const { categoryImg, categoryName, medicineCount } = category;
+  const { categoryImg, categoryName } = category;
+  const axiosNonSecure = useAxios();
+
+  // getDynamic medicine Count
+  const getData = async () => {
+    const { data } = await axiosNonSecure.get(
+      `/medicines/category/${categoryName}`
+    );
+    return data;
+  };
+  // tanStack
+  const { data: medicineCategorys = [] } = useQuery({
+    queryFn: async () => getData(),
+    queryKey: ["categorys", categoryName],
+  });
+  const medicineCount = medicineCategorys.length;
   const navigate = useNavigate();
   return (
     <div onClick={() => navigate(`/categoryDetails/${categoryName}`)}>
