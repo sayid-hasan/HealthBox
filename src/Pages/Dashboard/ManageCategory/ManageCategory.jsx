@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import Category from "./Category";
+import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
+import { MdAdd } from "react-icons/md";
+import AddModal from "./AddModal/AddModal";
 
 const ManageCategory = () => {
   const [categories, setCategories] = useState([]);
-  const [modalData, setModalData] = useState(null); // For editing
+  const [modal, setModal] = useState(null); // For editing
   const [formData, setFormData] = useState({
     categoryName: "",
     categoryImage: "",
@@ -28,37 +31,8 @@ const ManageCategory = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAddCategory = async () => {
-    try {
-      const { data } = await axiosSecure.post("/categories", formData);
-      alert(data.message);
-      setCategories([...categories, formData]); // Update UI
-      setFormData({ categoryName: "", categoryImage: "" }); // Reset form
-    } catch (error) {
-      console.error("Error adding category:", error);
-    }
-  };
-
-  const handleEditCategory = async () => {
-    try {
-      const { data } = await axiosSecure.put(
-        `/categories/${modalData._id}`,
-        formData
-      );
-      alert(data.message);
-      setCategories((prev) =>
-        prev.map((cat) =>
-          cat._id === modalData._id ? { ...cat, ...formData } : cat
-        )
-      );
-      setModalData(null); // Close modal
-    } catch (error) {
-      console.error("Error updating category:", error);
-    }
-  };
-
   return (
-    <div>
+    <div className="w-full relative">
       <Helmet>Admin | Manage Categorys</Helmet>
       <div className="bg-white px-4 md:px-12  md:py-12">
         <div className="font-Cinzel font-bold flex items-center justify-between ">
@@ -103,8 +77,26 @@ const ManageCategory = () => {
             </table>
           </div>
         </div>
-        <div></div>
+        {/* category btn */}
+        <div className="w-full flex justify-center">
+          {/* add a category */}
+
+          <button onClick={() => setModal(true)}>
+            <BtnWithICon
+              text={"add a category"}
+              icon={<MdAdd></MdAdd>}
+              classname={`hover:text-SecondaryColor hover:border-SecondaryColor  border hover:bg-PrimaryColor flex-1 max-w-`}
+            ></BtnWithICon>
+          </button>
+        </div>
       </div>
+      {
+        <AddModal
+          modal={modal}
+          setModal={setModal}
+          refetch={refetch}
+        ></AddModal>
+      }
     </div>
   );
 };

@@ -66,7 +66,7 @@ const Dashboard = () => {
         backgroundImage: `linear-gradient(62deg, #1364FF 0%, #DEE9FF 100%)
         `,
       }}
-      className="md:max-h-full max-h-fit h-fit md:h-full text-[#0A2A66]  font-Nunito  !bg-cover"
+      className="md:max-h-full max-h-fit h-fit md:h-full text-[#0A2A66]  font-Nunito  !bg-cover z-10"
     >
       <Toolbar className="p-5">
         <Typography
@@ -532,7 +532,7 @@ const Dashboard = () => {
             position: "absolute",
             top: "10px",
             left: "10px",
-            zIndex: "1000",
+            zIndex: "10",
           }}
         >
           <IconButton
