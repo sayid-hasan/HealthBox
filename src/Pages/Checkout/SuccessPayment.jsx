@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useAxios from "../../Hooks/useAxios";
 import jsPDF from "jspdf";
+import BtnWithICon from "../../components/NormalBtns/BtnWithIcon";
+import { FaDownload } from "react-icons/fa";
 
 const SuccessPayment = () => {
   const location = useLocation();
@@ -14,6 +16,7 @@ const SuccessPayment = () => {
   const [paymentDetails, setPaymentDetails] = useState();
 
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     // Fetch all payment details for the user
     const fetchPaymentDetails = async () => {
@@ -29,6 +32,9 @@ const SuccessPayment = () => {
 
     fetchPaymentDetails();
   }, [transactionId, axiosNonSecure]);
+  const date = new Date(paymentDetails?.date);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-GB", options);
   const handleDownloadPDF = () => {
     if (!paymentDetails) return;
 
@@ -85,36 +91,171 @@ const SuccessPayment = () => {
           ${amount}
         </div>
       </div>
-      <div>
-        <h2>Invoice Details</h2>
-        <p>
-          <strong>Name:</strong> {paymentDetails?.name}
-        </p>
-        <p>
-          <strong>Email:</strong> {paymentDetails?.email}
-        </p>
-        <p>
-          <strong>Transaction ID:</strong> {paymentDetails?.transactionId}
-        </p>
-        <p>
-          <strong>Purchase Date:</strong>{" "}
-          {new Date(paymentDetails?.purchaseDate).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Total Amount:</strong> AED {paymentDetails?.amount}
-        </p>
 
-        <h3>Purchased Items</h3>
-        <ul>
-          {paymentDetails?.purchasedItems.map((item, index) => (
-            <li key={index}>
-              {item.name} - AED {item.price} x {item.quantity}
-            </li>
-          ))}
-        </ul>
+      {/* designed invoice */}
+      {/* <!-- component --> */}
+      <section className=" py-20">
+        <div className="max-w-2xl mx-auto py-0 md:py-16">
+          <article className="shadow-none md:shadow-md md:rounded-md overflow-hidden">
+            <div className="md:rounded-b-md  bg-white">
+              <div className="p-9 border-b border-gray-200">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-top">
+                    <div className="space-y-4">
+                      <div>
+                        <img
+                          className="h-6 object-cover mb-4"
+                          src="https://cdn.mjwebs.com/sites/mjwebs/mjwebs-logo.png"
+                        />
+                        <p className="font-bold text-lg"> Invoice </p>
+                        <p> HealthBox </p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          Billed To{" "}
+                        </p>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          {paymentDetails?.name}{" "}
+                        </p>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          {paymentDetails?.email}{" "}
+                        </p>
+                        <p> </p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          TrxID{" "}
+                        </p>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          {paymentDetails?.transactionId}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          Invoice Date{" "}
+                        </p>
+                        <p className="font-medium text-sm text-gray-400">
+                          {" "}
+                          {formattedDate}
+                        </p>
+                      </div>
 
-        <button onClick={handleDownloadPDF}>Download Invoice</button>
-      </div>
+                      <button onClick={() => handleDownloadPDF()}>
+                        <BtnWithICon
+                          text={`Download PDF`}
+                          icon={<FaDownload></FaDownload>}
+                          classname={` my-2 hover:bg-PrimaryColor hover:text-SecondaryColor`}
+                        ></BtnWithICon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-9 border-b border-gray-200">
+                <p className="font-medium text-sm text-gray-400"> Note </p>
+                <p className="text-sm"> Thank you for your order. </p>
+              </div>
+              <table className="w-full divide-y divide-gray-200 text-sm">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-9 py-4 text-left font-semibold text-gray-400"
+                    >
+                      {" "}
+                      Item{" "}
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3 text-left font-semibold text-gray-400"
+                    >
+                      {" "}
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3 text-left font-semibold text-gray-400"
+                    >
+                      {" "}
+                      Qty{" "}
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3 text-left font-semibold text-gray-400"
+                    >
+                      {" "}
+                      Amount{" "}
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="py-3 text-left font-semibold text-gray-400"
+                    ></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {paymentDetails?.purchasedItems.map((item, index) => (
+                    <tr key={index}>
+                      <td className="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
+                        <div>
+                          <p className="font-medium text-sm text-gray-400">
+                            {" "}
+                            {item?.name}{" "}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="whitespace-nowrap text-gray-600 truncate"></td>
+                      <td className="whitespace-nowrap text-gray-600 truncate">
+                        {item?.quantity}
+                      </td>
+                      <td className="whitespace-nowrap text-gray-600 truncate">
+                        {" "}
+                        {item?.price}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="p-9 border-b border-gray-200">
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <div>
+                      <p className="text-gray-500 text-sm"> Total </p>
+                    </div>
+                    <p className="text-gray-500 text-sm">
+                      {" "}
+                      AED {paymentDetails?.amount}{" "}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-9 border-b border-gray-200">
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <div>
+                      <p className="font-bold text-black text-lg">
+                        {" "}
+                        Total paid{" "}
+                      </p>
+                    </div>
+                    <p className="font-bold text-black text-lg">
+                      {" "}
+                      AED {paymentDetails?.amount}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
     </div>
   );
 };
