@@ -348,7 +348,7 @@ const Dashboard = () => {
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/*manageappliedApplications */}
+            {/*manage category list */}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
@@ -372,13 +372,13 @@ const Dashboard = () => {
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/* Add schoalrship */}
+            {/* slaes report*/}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/addscholarships"
+                to="/dashboard/salesreport"
               >
                 <ListItemButton
                   sx={{
