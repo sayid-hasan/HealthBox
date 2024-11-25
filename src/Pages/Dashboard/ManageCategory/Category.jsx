@@ -8,10 +8,10 @@ import UpdateModal from "./UpdateModal";
 const Category = ({ category, idx, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [modal, setModal] = useState(false);
-  const handleEditScholarship = () => {
+  const handleEditCategory = () => {
     setModal(true);
   };
-  //  delete scholarship
+  //  delete Category
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -30,7 +30,7 @@ const Category = ({ category, idx, refetch }) => {
               refetch();
               Swal.fire({
                 title: "Deleted!",
-                text: "Scholarship has been deleted.",
+                text: "Category has been deleted.",
                 icon: "success",
               });
             }
@@ -61,7 +61,7 @@ const Category = ({ category, idx, refetch }) => {
         {/* edit */}
         <th className="">
           <button
-            onClick={() => handleEditScholarship(category?._id)}
+            onClick={() => handleEditCategory(category?._id)}
             className="btn btn-ghost  text-3xl text-white flex justify-center items-center bg-red-700"
           >
             <FaEdit></FaEdit>

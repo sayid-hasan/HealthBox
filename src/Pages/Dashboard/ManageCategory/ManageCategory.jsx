@@ -28,7 +28,7 @@ const ManageCategory = () => {
       <div className="bg-white px-4 md:px-12  md:py-12">
         <div className="font-Cinzel font-bold flex items-center justify-between ">
           <h2 className=" text-2xl text-SecondaryColor md:text-3xl  md:leading-[43px]">
-            Total ScholarShips: {categorieData?.length}
+            Total Category: {categorieData?.length}
           </h2>
         </div>
         {/* table */}
