@@ -6,7 +6,6 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
 import { Helmet } from "react-helmet-async";
 import { CSVLink } from "react-csv";
-import { color } from "framer-motion";
 
 const SalesReport = () => {
   const [sales, setSales] = useState([]);

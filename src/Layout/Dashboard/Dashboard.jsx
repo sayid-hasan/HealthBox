@@ -1,5 +1,4 @@
 import {
-  Backdrop,
   Box,
   Divider,
   Drawer,
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { CiCalendar, CiMenuBurger } from "react-icons/ci";
+import { FcSalesPerformance } from "react-icons/fc";
 import {
   FaBars,
   FaBook,
@@ -388,21 +388,21 @@ const Dashboard = () => {
                   }}
                 >
                   <span className="text-2xl">
-                    <FaSchool></FaSchool>
+                    <FcSalesPerformance />
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    add Schoalarship
+                    Sales Report
                   </span>
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/* manage Schoalarship */}
+            {/* manage payments */}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/manageAllScholarship"
+                to="/dashboard/managepayments"
               >
                 <ListItemButton
                   sx={{
@@ -415,7 +415,7 @@ const Dashboard = () => {
                     <FaList></FaList>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    manage Schoalarship
+                    Manage Payments
                   </span>
                 </ListItemButton>
               </NavLink>
