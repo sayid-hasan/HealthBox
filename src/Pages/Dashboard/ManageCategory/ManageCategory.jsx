@@ -1,20 +1,16 @@
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import Category from "./Category";
 import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
 import { MdAdd } from "react-icons/md";
 import AddModal from "./AddModal/AddModal";
+import { useState } from "react";
 
 const ManageCategory = () => {
-  const [categories, setCategories] = useState([]);
   const [modal, setModal] = useState(null); // For editing
-  const [formData, setFormData] = useState({
-    categoryName: "",
-    categoryImage: "",
-  });
+
   const axiosSecure = useAxiosSecure();
   const getData = async () => {
     const response = await axiosSecure.get("/categories");
@@ -25,11 +21,6 @@ const ManageCategory = () => {
     queryKey: ["categories"],
     queryFn: () => getData(),
   });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   return (
     <div className="w-full relative">
