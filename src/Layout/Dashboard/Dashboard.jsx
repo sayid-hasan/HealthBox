@@ -175,13 +175,13 @@ const Dashboard = () => {
         {user && isSeller && !isAdmin && (
           <>
             {" "}
-            {/* moderatorhome */}
+            {/* seller profile */}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/myprofile"
+                to="/dashboard/sellerprofile"
               >
                 <ListItemButton
                   sx={{
@@ -194,18 +194,18 @@ const Dashboard = () => {
                     <FaHome></FaHome>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    Moderator Profile
+                    Seller Profile
                   </span>
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/* manage Schoalarship */}
+            {/* manage medicines */}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/managescholarship"
+                to="/dashboard/managemedicines"
               >
                 <ListItemButton
                   sx={{
@@ -218,7 +218,7 @@ const Dashboard = () => {
                     <FaList></FaList>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    manage Schoalarship
+                    Manage Medicines
                   </span>
                 </ListItemButton>
               </NavLink>
@@ -440,30 +440,6 @@ const Dashboard = () => {
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
                     Manage Adds
-                  </span>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            {/* Manage Reviews*/}
-            <ListItem>
-              <NavLink
-                style={({ isActive }) => {
-                  return isActive ? { color: "white" } : {};
-                }}
-                to="/dashboard/manageReviews"
-              >
-                <ListItemButton
-                  sx={{
-                    display: "flex",
-                    gap: "15px",
-                    textDecoration: "uppercase",
-                  }}
-                >
-                  <span className="text-2xl">
-                    <FaUsers></FaUsers>
-                  </span>
-                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    Manage Reviews
                   </span>
                 </ListItemButton>
               </NavLink>

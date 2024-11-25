@@ -17,6 +17,8 @@ import ManageCategory from "../Pages/Dashboard/ManageCategory/ManageCategory";
 import SalesReport from "../Pages/Dashboard/SalesReport/SalesReport";
 import ManagePayments from "../Pages/Dashboard/ManagePayments/ManagePayments";
 import ManageAds from "../Pages/Dashboard/ManageAds/ManageAds";
+import ManageMedicines from "../Pages/Dashboard/Seller/ManageMedicines/ManageMedicines";
+import SellerProfile from "../Pages/Dashboard/Seller/SellerProfile/SellerProfile";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +93,15 @@ const router = createBrowserRouter([
       {
         path: "manageads",
         element: <ManageAds></ManageAds>,
+      },
+      // seller apis
+      {
+        path: "managemedicines",
+        element: <ManageMedicines></ManageMedicines>,
+      },
+      {
+        path: "sellerprofile",
+        element: <SellerProfile></SellerProfile>,
       },
     ],
   },

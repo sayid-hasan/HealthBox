@@ -68,10 +68,18 @@ const TableWithAction = ({ rows }) => {
   const handleAddToCart = async (id) => {
     // alert(`Item with _id: ${id} added to cart, ${}`);
     const productData = await getProduct(id);
-    const { name, companyName, price, discountPercentage, image, stock } =
-      productData;
+    const {
+      name,
+      companyName,
+      price,
+      discountPercentage,
+      sellerEmail,
+      image,
+      stock,
+    } = productData;
     const productInfo = {
       medicineId: id,
+      sellerEmail: sellerEmail,
       name,
       companyName,
       price: await getPrice(discountPercentage, price),
