@@ -420,13 +420,13 @@ const Dashboard = () => {
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/*manageappliedApplications */}
+            {/*Manage ads*/}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/manageappliedApplications"
+                to="/dashboard/manageads"
               >
                 <ListItemButton
                   sx={{
@@ -439,7 +439,7 @@ const Dashboard = () => {
                     <FaBook></FaBook>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    Manage Applied Applications
+                    Manage Adds
                   </span>
                 </ListItemButton>
               </NavLink>

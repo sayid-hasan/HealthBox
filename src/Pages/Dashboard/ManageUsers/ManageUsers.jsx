@@ -83,7 +83,7 @@ const ManageUsers = () => {
     });
   };
   return (
-    <div className="bg-[#F6F6F6] pt-5 px-4">
+    <div className="bg-[#F6F6F6] pt-5 px-4 min-h-screen">
       <Helmet>
         <title>Admin | Manage Users</title>
       </Helmet>
