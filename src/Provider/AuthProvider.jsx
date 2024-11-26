@@ -14,12 +14,10 @@ import { createContext } from "react";
 import auth from "../firebase/firebase.config";
 import useAxios from "../Hooks/useAxios";
 
-export const AuthContext = createContext();
-
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 const githubProvider = new GithubAuthProvider();
-
+export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const axiosNonSecure = useAxios();
   const [user, setUser] = useState();
@@ -31,6 +29,43 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, pass);
   };
 
+  // login user
+  const loginUser = (email, pass) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, pass);
+  };
+
+  // LOGIN WITH GOOGLE
+  const signInWithGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+  // LOGIN WITH facebook
+  const signInWithFacebook = () => {
+    setLoading(true);
+    return signInWithPopup(auth, facebookProvider);
+  };
+
+  // LOGIN WITH GOOGLE
+  const signInWithGithub = () => {
+    setLoading(true);
+    return signInWithPopup(auth, githubProvider);
+  };
+  // update profile
+
+  const updateUserProfile = (username, image) => {
+    return updateProfile(auth.currentUser, {
+      displayName: username,
+      photoURL: image,
+    });
+  };
+
+  //logout user
+  const logOutUser = () => {
+    setLoading(true);
+    // setUser(null);
+    return signOut(auth);
+  };
   // ONAUTH STATE CHANGE
   useEffect(() => {
     const unsubscrube = onAuthStateChanged(auth, (currentUser) => {
@@ -58,46 +93,6 @@ const AuthProvider = ({ children }) => {
       return unsubscrube();
     };
   }, [axiosNonSecure]);
-
-  // login user
-  const loginUser = (email, pass) => {
-    return signInWithEmailAndPassword(auth, email, pass);
-  };
-
-  // LOGIN WITH GOOGLE
-  const signInWithGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleProvider);
-  };
-  // LOGIN WITH facebook
-  const signInWithFacebook = () => {
-    facebookProvider.addScope("email");
-    setLoading(true);
-    return signInWithPopup(auth, facebookProvider);
-  };
-
-  // LOGIN WITH GOOGLE
-  const signInWithGithub = () => {
-    githubProvider.addScope("email");
-    setLoading(true);
-    return signInWithPopup(auth, githubProvider);
-  };
-  // update profile
-
-  const updateUserProfile = (username, image) => {
-    return updateProfile(auth.currentUser, {
-      displayName: username,
-      photoURL: image,
-    });
-  };
-
-  //logout user
-  const logOutUser = () => {
-    setLoading(true);
-    setUser(null);
-    return signOut(auth);
-  };
-
   const authinfo = {
     user,
     loading,

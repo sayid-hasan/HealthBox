@@ -32,7 +32,7 @@ const AddModal = ({ modal, refetch, setModal }) => {
 
       const data = await response.json();
       const { signature, expire, token } = data;
-      console.log(data);
+      // console.log(data);
       return { signature, expire, token };
     } catch (error) {
       throw new Error(`Authentication request failed: ${error.message}`);

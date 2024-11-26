@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
-import { CiCalendar, CiMenuBurger } from "react-icons/ci";
+import { CiMenuBurger } from "react-icons/ci";
 import { FcSalesPerformance } from "react-icons/fc";
 import { FaBars, FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
-import { MdAdsClick, MdOutlinePayment, MdPayment } from "react-icons/md";
+import { MdAdsClick, MdPayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 
@@ -34,7 +34,7 @@ const Dashboard = () => {
   // const isAdmin = true;
   // const isSeller = true;
   //   refetch();
-  console.log(isAdmin, isSeller);
+  // console.log(isAdmin, isSeller);
   //   const isSeller = false;
   //   const isAdmin = true;
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/myprofile"
+                to="/dashboard/userPaymentHistory"
               >
                 <ListItemButton
                   sx={{
@@ -107,58 +107,10 @@ const Dashboard = () => {
                   }}
                 >
                   <span className="text-2xl">
-                    <FaHome></FaHome>
+                    <MdPayment></MdPayment>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    My Profile
-                  </span>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            {/* myapplications */}
-            <ListItem>
-              <NavLink
-                style={({ isActive }) => {
-                  return isActive ? { color: "white" } : {};
-                }}
-                to="/dashboard/myapplications"
-              >
-                <ListItemButton
-                  sx={{
-                    display: "flex",
-                    gap: "15px",
-                    textDecoration: "uppercase",
-                  }}
-                >
-                  <span className="text-2xl">
-                    <CiCalendar></CiCalendar>
-                  </span>
-                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    My Applications
-                  </span>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            {/* My Reviews */}
-            <ListItem>
-              <NavLink
-                style={({ isActive }) => {
-                  return isActive ? { color: "white" } : {};
-                }}
-                to="/dashboard/myreviews"
-              >
-                <ListItemButton
-                  sx={{
-                    display: "flex",
-                    gap: "15px",
-                    textDecoration: "uppercase",
-                  }}
-                >
-                  <span className="text-2xl">
-                    <MdOutlinePayment></MdOutlinePayment>
-                  </span>
-                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    My Reviews
+                    Payment History
                   </span>
                 </ListItemButton>
               </NavLink>

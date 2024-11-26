@@ -14,7 +14,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 const Checkout = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
-  console.log("checkout page", location?.state);
+  // console.log("checkout page", location?.state);
   const amount = location?.state?.totalPrice;
 
   return (

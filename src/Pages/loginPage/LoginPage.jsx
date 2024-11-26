@@ -15,7 +15,8 @@ const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
+  console.log("location", location?.state);
   const { loginUser, setLoading, user } = useContext(AuthContext);
 
   const {
@@ -41,8 +42,8 @@ const LoginPage = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        setLoading(false);
         navigate(from);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

@@ -6,10 +6,13 @@ import useAxios from "../../Hooks/useAxios";
 import ViewDetailsModal from "../ViewDetailsModal/ViewDetailsModal";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const TableWithAction = ({ rows }) => {
   const [isModal, setIsModal] = useState(false);
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
   const axiosNonSecure = useAxios();
   const [modalData, setModalData] = useState(null); // Store modal data here
   const [isLoading, setIsLoading] = useState(false); // Handle loading state
@@ -54,7 +57,7 @@ const TableWithAction = ({ rows }) => {
         setIsLoading(false); // Stop loading on error
       });
 
-    console.log("Modal opened", modalData);
+    // console.log("Modal opened", modalData);""
     // get data for modal
   };
 
@@ -66,6 +69,11 @@ const TableWithAction = ({ rows }) => {
     return newPrice;
   };
   const handleAddToCart = async (id) => {
+    if (!user) {
+      navigate("/login", {
+        state: { ...location?.state, from: location.pathname },
+      });
+    }
     // alert(`Item with _id: ${id} added to cart, ${}`);
     const productData = await getProduct(id);
     const {
@@ -88,7 +96,7 @@ const TableWithAction = ({ rows }) => {
       image,
       stock,
     };
-    console.log(productInfo);
+    // console.log(productInfo);
     await fetchProductIntoCart(productInfo);
   };
 

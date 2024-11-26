@@ -11,7 +11,7 @@ const SuccessPayment = () => {
   // Parse the query string from the location object
   const { amount, transactionId } = location.state;
 
-  console.log("successPayment", amount, transactionId);
+  // console.log("successPayment", amount, transactionId);
   const axiosNonSecure = useAxios();
   const [paymentDetails, setPaymentDetails] = useState();
 

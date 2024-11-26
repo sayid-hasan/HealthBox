@@ -21,7 +21,7 @@ const ManageMedicines = () => {
       return res?.data;
     },
   });
-  console.log("seller medicines", sellerMedicines);
+  // console.log("seller medicines", sellerMedicines);
   return (
     <div className="w-full relative">
       <Helmet>Seller | Medicine Management</Helmet>

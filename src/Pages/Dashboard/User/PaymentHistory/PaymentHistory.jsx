@@ -1,31 +1,29 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import PaymentTable from "./PaymentTable/PaymentTable";
+import PaymentsHistory from "./PaymentsHistory";
 
-const PaymentHistory = () => {
+const UserPaymentHistory = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   // tanstack
-  const { data: paymentHisSeller = [], refetch } = useQuery({
-    queryKey: ["paymentHisSeller", user?.email],
+  const { data: userPaymentHistory = [], refetch } = useQuery({
+    queryKey: ["userPaymentHistory", user?.uid],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/seller-medicines-sell/${user?.email}`
-      );
+      const res = await axiosSecure.get(`/purchases/${user?.uid}`);
       return res?.data;
     },
   });
-  // console.log("seller medicines", paymentHisSeller);
+  console.log("userPaymentHistory", userPaymentHistory);
   return (
     <div className="w-full relative">
-      <Helmet>Seller | Payment History</Helmet>
+      <Helmet>User | Payment History</Helmet>
       <div className="bg-white px-4 md:px-12  md:py-12">
         <div className="font-Cinzel font-bold flex items-center justify-between ">
           <h2 className=" text-2xl text-SecondaryColor md:text-3xl  md:leading-[43px]">
-            Total Sells: {paymentHisSeller?.length}
+            Total Payments: {userPaymentHistory?.length}
           </h2>
         </div>
         {/* table */}
@@ -41,21 +39,24 @@ const PaymentHistory = () => {
                     UserID
                   </th>
                   <th className="text-base text-center uppercase font-semibold leading-[19px]">
-                    Amount
+                    TRX ID
                   </th>
                   <th className="text-base text-center uppercase font-semibold leading-[19px]">
-                    Status
+                    Date
+                  </th>
+                  <th className="text-base text-center uppercase font-semibold leading-[19px]">
+                    status
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {paymentHisSeller.map((payment, idx) => (
-                  <PaymentTable
+                {userPaymentHistory.map((payment, idx) => (
+                  <PaymentsHistory
                     key={payment._id}
                     payment={payment}
                     idx={idx}
                     refetch={refetch}
-                  ></PaymentTable>
+                  ></PaymentsHistory>
                 ))}
               </tbody>
             </table>
@@ -66,4 +67,4 @@ const PaymentHistory = () => {
   );
 };
 
-export default PaymentHistory;
+export default UserPaymentHistory;

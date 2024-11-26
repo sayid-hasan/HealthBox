@@ -21,7 +21,7 @@ const DiscountSliderCard = ({ slider }) => {
 
   const navigate = useNavigate();
   return (
-    <div onClick={() => navigate("/all")}>
+    <div onClick={() => navigate("/shop")}>
       {" "}
       <div className=" py-7 max-w-sm md:max-w-xl cursor-pointer transition transform hover:scale-105 duration-300  mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <motion.img

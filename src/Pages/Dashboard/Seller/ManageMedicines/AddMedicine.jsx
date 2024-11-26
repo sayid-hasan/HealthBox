@@ -34,7 +34,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
 
       const data = await response.json();
       const { signature, expire, token } = data;
-      console.log(data);
+      // console.log(data);
       return { signature, expire, token };
     } catch (error) {
       throw new Error(`Authentication request failed: ${error.message}`);
@@ -42,21 +42,21 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
   };
 
   const onError = (err) => {
-    console.log("Error", err);
+    // console.log("Error", err);
     setProgress(0);
     setUploading(false);
     toast.error("sorry, looks like something went wrong");
   };
 
   const onSuccess = (res) => {
-    console.log("Success", res);
+    // console.log("Success", res);
     setProgress(100);
     setUploading(false);
     toast.success("image uploaded successfully");
     setImageUrl(res?.url);
   };
   const onUploadStart = (evt) => {
-    console.log("Start", evt);
+    // console.log("Start", evt);
     if (evt) {
       setUploading(true);
     }
@@ -84,7 +84,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
       stock,
     } = data;
     // console.log(data);
-    console.log(imageUrl);
+    // console.log(imageUrl);
     const productInfo = {
       itemGenericName,
       name,
@@ -98,11 +98,11 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
       price: parseFloat(price),
       stock: parseFloat(stock),
     };
-    console.log(productInfo);
+    // console.log(productInfo);
     // //   add data on database as category
     try {
       const res = await axiosSecure.post(`/seller-medicines`, productInfo);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
           position: "top-center",
@@ -116,7 +116,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
         setModal(false);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       Swal.fire({
         position: "top-center",
         icon: "error",

@@ -11,7 +11,7 @@ import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
 import { MdUpdate } from "react-icons/md";
 
 const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
-  console.log(categoryId);
+  // console.log(categoryId);
 
   const axiosSecure = useAxiosSecure();
   const [progress, setProgress] = useState(0);
@@ -37,7 +37,7 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
 
       const data = await response.json();
       const { signature, expire, token } = data;
-      console.log(data);
+      // console.log(data);
       return { signature, expire, token };
     } catch (error) {
       throw new Error(`Authentication request failed: ${error.message}`);
@@ -45,28 +45,28 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
   };
 
   const onError = (err) => {
-    console.log("Error", err);
+    // console.log("Error", err);
     setProgress(0);
     setUploading(false);
     toast.error("sorry, looks like something went wrong");
   };
 
   const onSuccess = (res) => {
-    console.log("Success", res);
+    // console.log("Success", res);
     setProgress(100);
     setUploading(false);
     toast.success("image uploaded successfully");
     setImageUrl(res?.url);
   };
   const onUploadStart = (evt) => {
-    console.log("Start", evt);
+    // console.log("Start", evt);
     if (evt) {
       setUploading(true);
     }
   };
   const onUploadProgress = (progress) => {
     setUploading(false);
-    console.log("Progress", progress);
+    // console.log("Progress", progress);
     const percentage = Math.round((progress?.loaded / progress.total) * 98);
     setProgress(percentage);
   };
@@ -79,19 +79,19 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
   const onSubmit = async (data) => {
     const { categoryUpdatedName } = data;
     // console.log(data);
-    console.log(imageUrl);
+    // console.log(imageUrl);
     const updatedData = {
       categoryName: categoryUpdatedName,
       categoryImg: imageUrl,
     };
-    console.log(updatedData);
+    // console.log(updatedData);
     //   update data on database as category
     try {
       const res = await axiosSecure.put(
         `/categories/${categoryId}`,
         updatedData
       );
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top-end",
@@ -105,7 +105,7 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
         setModal(false);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       Swal.fire({
         position: "top-end",
         icon: "error",

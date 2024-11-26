@@ -34,7 +34,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
 
       const data = await response.json();
       const { signature, expire, token } = data;
-      console.log(data);
+      // console.log(data);
       return { signature, expire, token };
     } catch (error) {
       throw new Error(`Authentication request failed: ${error.message}`);
@@ -42,28 +42,28 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
   };
 
   const onError = (err) => {
-    console.log("Error", err);
+    // console.log("Error", err);
     setProgress(0);
     setUploading(false);
     toast.error("sorry, looks like something went wrong");
   };
 
   const onSuccess = (res) => {
-    console.log("Success", res);
+    // console.log("Success", res);
     setProgress(100);
     setUploading(false);
     toast.success("image uploaded successfully");
     setImageUrl(res?.url);
   };
   const onUploadStart = (evt) => {
-    console.log("Start", evt);
+    // console.log("Start", evt);
     if (evt) {
       setUploading(true);
     }
   };
   const onUploadProgress = (progress) => {
     setUploading(false);
-    console.log("Progress", progress);
+    // console.log("Progress", progress);
     const percentage = Math.round((progress?.loaded / progress.total) * 98);
     setProgress(percentage);
   };
@@ -79,7 +79,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
       description,
     } = data;
     // console.log(data);
-    console.log(imageUrl);
+    // console.log(imageUrl);
     const productInfo = {
       name,
       image: imageUrl,
@@ -87,11 +87,11 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
       description,
       sellerEmail: user?.email,
     };
-    console.log(productInfo);
+    // console.log(productInfo);
     // //   add data on database as category
     try {
       const res = await axiosSecure.post(`/ask-advertisements`, productInfo);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
           position: "top-center",
@@ -105,7 +105,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
         setModal(false);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       Swal.fire({
         position: "top-center",
         icon: "error",

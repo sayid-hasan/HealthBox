@@ -119,7 +119,7 @@ const CheckoutPage = ({ amount }) => {
 
     createPaymentIntent();
   }, [amount, axiosNonSecure]);
-  console.log("checkout component clientS", clientSecret);
+  // console.log("checkout component clientS", clientSecret);
   // handle submit process EVENT
 
   const handleSubmit = async (event) => {
@@ -158,10 +158,10 @@ const CheckoutPage = ({ amount }) => {
     });
 
     if (error) {
-      console.log("[error]", error);
+      // console.log("[error]", error);
       setError(error);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      // console.log("[PaymentMethod]", paymentMethod);
       setPaymentMethod(paymentMethod);
       setError("");
     }
@@ -176,14 +176,14 @@ const CheckoutPage = ({ amount }) => {
       }
     );
     if (confirmError) {
-      console.log("confirem errr", confirmError);
+      // console.log("confirem errr", confirmError);
       toast.error("payment Error");
     }
     if (paymentIntent) {
       //   console.log("confirm payment", paymentIntent);
       setPaymentIntent(paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction id", paymentIntent.id);
+        // console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
         toast.success("payment succeeded");
 
@@ -198,7 +198,7 @@ const CheckoutPage = ({ amount }) => {
           userId: user?.uid,
         };
         const res = await axiosNonSecure.post("/payments", payment);
-        console.log("payment savedd", res.data);
+        // console.log("payment savedd", res.data);
         if (res.data?.insertedId) {
           Swal.fire({
             position: "top-end",

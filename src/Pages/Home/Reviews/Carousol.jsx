@@ -78,7 +78,7 @@ const Carousol = () => {
     <div className="overflow-hidden my-8">
       <Swiper ref={swiperRef} {...params}>
         {topReviews.map((review) => (
-          <div key={review.id}>
+          <div key={review._id}>
             <ReviewCard review={review} />
           </div>
         ))}

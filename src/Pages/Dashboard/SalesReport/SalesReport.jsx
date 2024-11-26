@@ -31,7 +31,7 @@ const SalesReport = () => {
   useEffect(() => {
     fetchSales();
   }, [fetchSales]);
-  console.log("sales", sales);
+  // console.log("sales", sales);
   // data provides access to your row data
   const ExpandedComponent = ({ data }) => (
     <pre>

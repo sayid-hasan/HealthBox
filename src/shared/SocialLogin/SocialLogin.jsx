@@ -2,13 +2,14 @@ import { useContext } from "react";
 import { FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAxios from "../../Hooks/useAxios";
 
 const SocialLogin = () => {
-  const navigate = useNavigate();
   const { signInWithGithub, signInWithFacebook, signInWithGoogle, setLoading } =
     useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const from = location.state?.from || "/";
   const axiosNonSecure = useAxios();
 
@@ -28,6 +29,7 @@ const SocialLogin = () => {
       //const user = result.user;
       if (res.data?.insertedId) {
         toast.success(`welcome  ${result.user.displayName}`);
+        navigate(from);
         setLoading(false);
         navigate(from);
       } else if (res.data.message === "Email already exists") {
@@ -40,12 +42,13 @@ const SocialLogin = () => {
       .then((result) => {
         // redirect to location
         saveUserNavigate(result);
+        navigate(from);
         //console.log(user);
       })
       .catch((error) => {
         // Handle Errors here.
         toast.error(`could not logged in ${error.message}`);
-        console.log(error);
+        // console.log(error);
         setLoading(false);
       });
   };
@@ -55,11 +58,12 @@ const SocialLogin = () => {
       .then((result) => {
         // redirect to location
         saveUserNavigate(result);
+        navigate(from);
       })
       .catch((error) => {
         // Handle Errors here.
         toast.error(`could not logged in ${error.message}`);
-        console.log(error);
+        // console.log(error);
         setLoading(false);
       });
   };
@@ -70,11 +74,12 @@ const SocialLogin = () => {
         // redirect to location
 
         saveUserNavigate(result);
+        navigate(from);
       })
       .catch((error) => {
         // Handle Errors here.
         toast.error(`could not logged in ${error.message}`);
-        console.log(error);
+        // console.log(error);
         setLoading(false);
       });
   };

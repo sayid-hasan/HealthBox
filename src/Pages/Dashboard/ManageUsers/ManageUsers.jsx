@@ -34,9 +34,9 @@ const ManageUsers = () => {
       if (result.isConfirmed) {
         setRole(event.target.value);
         const updatedRole = { userRole: role };
-        console.log(result.isConfirmed);
+        // console.log(result.isConfirmed);
         axiosSecure.put(`/users/admin/${user.uid}`, updatedRole).then((res) => {
-          console.log(res?.data);
+          // console.log(res?.data);
           if (res.data.modifiedCount > 0) {
             refetch();
             Swal.fire({
@@ -50,7 +50,7 @@ const ManageUsers = () => {
     });
   };
   const handleFilter = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setFilterRole(event.target.value);
     refetch();
   };

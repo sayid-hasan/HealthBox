@@ -26,7 +26,7 @@ const useAxiosSecure = () => {
   // );
   // new
   axiosSecure.interceptors.request.use(
-    function (config) {
+    async function (config) {
       const token = localStorage.getItem("access-token");
       config.headers.authorization = `Bearer ${token}`;
       return config;
@@ -36,20 +36,20 @@ const useAxiosSecure = () => {
     }
   );
   // resposne interceptor
-  axiosSecure.interceptors.response.use(
-    function (response) {
-      return response;
-    },
-    async (error) => {
-      const status = error?.response?.status;
-      console.log("status error in interceptors", error);
-      if (status === 401 || status === 403) {
-        await logOutUser();
-        navigate("/login");
-      }
-      return Promise.reject(error);
-    }
-  );
+  // axiosSecure.interceptors.response.use(
+  //   function (response) {
+  //     return response;
+  //   },
+  //   async (error) => {
+  //     const status = error?.response?.status;
+  //     console.log("status error in interceptors", error);
+  //     if (status === 401 || status === 403) {
+  //       await logOutUser();
+  //       navigate("/login");
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
   return axiosSecure;
 };
 

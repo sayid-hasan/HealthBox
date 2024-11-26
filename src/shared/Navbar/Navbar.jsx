@@ -1,14 +1,25 @@
 import { toast, ToastContainer } from "react-toastify";
 import "./navbar.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/user.png";
 import ShineyButton from "../../components/ShineyButton/ShineyButton";
 import cartImg from "../../assets/images/cartIcon.png";
+import useAdmin from "../../Hooks/useAdmin";
+import useSeller from "../../Hooks/useSeller";
 
 const Nav = () => {
   const { user, loading, logOutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
+  const [isSeller] = useSeller();
+  const [dashboardNavigation, setDashboardNavigation] = useState(
+    "/dashboard/userPaymentHistory"
+  );
+  useEffect(() => {
+    isAdmin && setDashboardNavigation("/dashboard/admin");
+    isSeller && setDashboardNavigation("/dashboard/sellerprofile");
+  }, [isAdmin, isSeller]);
   const handlelogOutUser = () => {
     logOutUser()
       .then(toast.info("Logged Out Successfully!"))
@@ -42,7 +53,7 @@ const Nav = () => {
         <li className="flex">
           {" "}
           <NavLink
-            to="/dashboard"
+            to={dashboardNavigation}
             className={` flex items-center px-4 h-full text-TextColor rounded-none duration-75 uppercase text-base  `}
           >
             Dashboard

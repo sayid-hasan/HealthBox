@@ -21,7 +21,7 @@ const CategoryDetailsPage = () => {
     queryFn: async () => getData(),
     queryKey: ["category", category],
   });
-  console.log("category Details:", medicineCategorys);
+  // console.log("category Details:", medicineCategorys);
   return (
     <div>
       <Helmet>

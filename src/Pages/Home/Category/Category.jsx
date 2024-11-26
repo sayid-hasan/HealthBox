@@ -22,7 +22,7 @@ const Category = () => {
   });
 
   if (isError || error) {
-    console.log(error);
+    // console.log(error);
   }
   console.log("top categories", categories);
 

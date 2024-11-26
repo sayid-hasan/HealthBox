@@ -21,6 +21,9 @@ import ManageMedicines from "../Pages/Dashboard/Seller/ManageMedicines/ManageMed
 import SellerProfile from "../Pages/Dashboard/Seller/SellerProfile/SellerProfile";
 import PaymentHistory from "../Pages/Dashboard/Seller/PaymentHistory/PaymentHistory";
 import AskAds from "../Pages/Dashboard/Seller/AskAds/AskAds";
+import UserPaymentHistory from "../Pages/Dashboard/User/PaymentHistory/PaymentHistory";
+import AdminRoute from "./SellerRoute";
+import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
   {
@@ -50,15 +53,30 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage></CartPage>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <CartPage></CartPage>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/checkout",
-        element: <Checkout></Checkout>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Checkout></Checkout>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/payment-success",
-        element: <SuccessPayment></SuccessPayment>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <SuccessPayment></SuccessPayment>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -74,44 +92,95 @@ const router = createBrowserRouter([
       // dashboard api need to relocate after creating dashboard layout
       {
         path: "admin",
-        element: <AdminProfile></AdminProfile>,
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
       },
       {
         path: "manageusers",
-        element: <ManageUsers></ManageUsers>,
+        element: (
+          <AdminRoute>
+            {" "}
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "managecategory",
-        element: <ManageCategory></ManageCategory>,
+        element: (
+          <AdminRoute>
+            {" "}
+            <ManageCategory></ManageCategory>
+          </AdminRoute>
+        ),
       },
       {
         path: "salesreport",
-        element: <SalesReport></SalesReport>,
+        element: (
+          <AdminRoute>
+            <SalesReport></SalesReport>
+          </AdminRoute>
+        ),
       },
       {
         path: "managepayments",
-        element: <ManagePayments></ManagePayments>,
+        element: (
+          <AdminRoute>
+            <ManagePayments></ManagePayments>
+          </AdminRoute>
+        ),
       },
       {
         path: "manageads",
-        element: <ManageAds></ManageAds>,
+        element: (
+          <AdminRoute>
+            <ManageAds></ManageAds>
+          </AdminRoute>
+        ),
       },
       // seller apis
       {
         path: "managemedicines",
-        element: <ManageMedicines></ManageMedicines>,
+        element: (
+          <SellerRoute>
+            <ManageMedicines></ManageMedicines>
+          </SellerRoute>
+        ),
       },
       {
         path: "sellerprofile",
-        element: <SellerProfile></SellerProfile>,
+        element: (
+          <SellerRoute>
+            <SellerProfile></SellerProfile>
+          </SellerRoute>
+        ),
       },
       {
         path: "paymentHistory",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <SellerRoute>
+            <PaymentHistory></PaymentHistory>
+          </SellerRoute>
+        ),
       },
       {
         path: "askAddvertisement",
-        element: <AskAds></AskAds>,
+        element: (
+          <SellerRoute>
+            <AskAds></AskAds>
+          </SellerRoute>
+        ),
+      },
+      // user
+      {
+        path: "userPaymentHistory",
+        element: (
+          <PrivateRoute>
+            <UserPaymentHistory></UserPaymentHistory>
+          </PrivateRoute>
+        ),
       },
     ],
   },

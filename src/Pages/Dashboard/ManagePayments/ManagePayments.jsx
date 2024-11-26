@@ -32,11 +32,11 @@ const ManagePayments = () => {
       if (result.isConfirmed) {
         setStatus(event.target.value);
         const updateStatus = { status: status };
-        console.log(result.isConfirmed);
+        // console.log(result.isConfirmed);
         axiosSecure
           .put(`/payments/${payment._id}`, updateStatus)
           .then((res) => {
-            console.log(res?.data);
+            // console.log(res?.data);
             if (res.data.modifiedCount > 0) {
               refetch();
               Swal.fire({
@@ -50,11 +50,11 @@ const ManagePayments = () => {
     });
   };
   const handleFilter = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setFilterStatus(event.target.value);
     refetch();
   };
-  console.log("Payments", payments);
+  // console.log("Payments", payments);
   return (
     <div className="bg-[#F6F6F6] pt-5 px-4 min-h-screen">
       <Helmet>
