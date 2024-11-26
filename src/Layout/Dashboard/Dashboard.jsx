@@ -12,14 +12,7 @@ import {
 import { useContext, useState } from "react";
 import { CiCalendar, CiMenuBurger } from "react-icons/ci";
 import { FcSalesPerformance } from "react-icons/fc";
-import {
-  FaBars,
-  FaBook,
-  FaHome,
-  FaList,
-  FaSchool,
-  FaUsers,
-} from "react-icons/fa";
+import { FaBars, FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
 import { MdAdsClick, MdOutlinePayment, MdPayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
@@ -445,13 +438,13 @@ const Dashboard = () => {
             </ListItemButton>
           </NavLink>
         </ListItem>
-        {/* all Scholarship */}
+        {/* Shop */}
         <ListItem>
           <NavLink
             style={({ isActive }) => {
               return isActive ? { color: "white" } : {};
             }}
-            to="/"
+            to="/shop"
           >
             <ListItemButton
               sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
@@ -460,7 +453,7 @@ const Dashboard = () => {
                 <CiMenuBurger></CiMenuBurger>
               </span>
               <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                menu
+                Shop
               </span>
             </ListItemButton>
           </NavLink>
