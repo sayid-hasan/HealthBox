@@ -186,7 +186,7 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                   className="flex items-center flex-col w-full "
                 >
                   <div className="grid grid-cols-2 w-full items-center px-4 gap-4 mb-4 ">
-                    {/* catgory name */}
+                    {/* medicine name */}
                     <div className="font-Nunito sm:col-span-1">
                       <label
                         htmlFor="name"
@@ -198,7 +198,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="name"
                         id="name"
-                        {...register("name")}
+                        {...register("name", {
+                          required: "medicine name required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Add Medicine name"
                       />
@@ -215,7 +217,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="itemGenericName"
                         id="itemGenericName"
-                        {...register("itemGenericName")}
+                        {...register("itemGenericName", {
+                          required: "Generic name required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Generic name"
                       />
@@ -268,7 +272,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="description"
                         id="description"
-                        {...register("description")}
+                        {...register("description", {
+                          required: "description name required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Add description"
                       />
@@ -285,7 +291,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="category"
                         id="category"
-                        {...register("category")}
+                        {...register("category", {
+                          required: "category name required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Add medicine category"
                       />
@@ -302,7 +310,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="companyName"
                         id="companyName"
-                        {...register("companyName")}
+                        {...register("companyName", {
+                          required: "company name required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="company name of medicine"
                       />
@@ -336,7 +346,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="number"
                         name="price"
                         id="price"
-                        {...register("price")}
+                        {...register("price", {
+                          required: "price required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="price"
                       />
@@ -353,7 +365,9 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                         type="number"
                         name="stock"
                         id="stock"
-                        {...register("stock")}
+                        {...register("stock", {
+                          required: "stock  required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="quantity"
                       />

@@ -178,7 +178,9 @@ const AddModal = ({ modal, refetch, setModal }) => {
                         type="text"
                         name="categoryName"
                         id="categoryName"
-                        {...register("categoryName")}
+                        {...register("categoryName", {
+                          required: "Category is required",
+                        })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Add your own category"
                       />
@@ -232,35 +234,35 @@ const AddModal = ({ modal, refetch, setModal }) => {
                   </button>
                 </form>
               </div>
+              {/* progress bar */}
+              {progress !== 0 && progress !== 100 && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
+                    style={{
+                      "--value": progress,
+                      "--size": "5rem",
+                      "--thickness": "10px",
+                    }}
+                    role="progressbar"
+                  >
+                    {progress}%
+                  </div>
+                </div>
+              )}
+              {/* loading */}
+              {uploading && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
+                    role=""
+                  ></div>
+                </div>
+              )}
             </div>
           </div>
-          {/* progress bar */}
-          {progress !== 0 && progress !== 100 && (
-            <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
-              {" "}
-              <div
-                className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
-                style={{
-                  "--value": progress,
-                  "--size": "5rem",
-                  "--thickness": "10px",
-                }}
-                role="progressbar"
-              >
-                {progress}%
-              </div>
-            </div>
-          )}
-          {/* loading */}
-          {uploading && (
-            <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
-              {" "}
-              <div
-                className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
-                role=""
-              ></div>
-            </div>
-          )}
         </div>
       )}
     </>

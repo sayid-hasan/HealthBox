@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import Swal from "sweetalert2";
+
 import { Helmet } from "react-helmet-async";
 
 import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
@@ -21,15 +20,15 @@ const ManageUsers = () => {
     }
   }, [axiosSecure]);
 
-  const handletoggleSlideStatus = async (id) => {
+  const handletoggleSlideStatus = async (id, btnStatus) => {
     try {
       const { data } = await axiosSecure.put(
         `/advertisements/${id}/toggleSlide`
       );
       if (data.modifiedCount > 0) {
-        toast.success("updates successfully");
+        toast.success(`${btnStatus} the Slide`);
       } else {
-        toast.error("Failed to update status");
+        toast.error("Failed to add Slide");
       }
       fetchAdvertisements(); // Refresh advertisements list
     } catch (error) {
@@ -74,7 +73,7 @@ const ManageUsers = () => {
                     seller Email
                   </th>
                   <th className="text-base uppercase font-semibold leading-[19px]">
-                    Action
+                    Add / Remove
                   </th>
                 </tr>
               </thead>
@@ -97,14 +96,17 @@ const ManageUsers = () => {
                       <span>{ads.sellerEmail}</span>
                     </td>
                     <td className="text-[#737373] text-base flex justify-center items-center">
-                      <button onClick={() => handletoggleSlideStatus(ads._id)}>
+                      <button
+                        onClick={() =>
+                          handletoggleSlideStatus(
+                            ads._id,
+                            ads.isOnSlide ? "Removed " : "Added "
+                          )
+                        }
+                      >
                         <BtnWithICon
-                          text={
-                            ads.isOnSlide
-                              ? "Remove from Slider"
-                              : "Add to Slider"
-                          }
-                          classname={`bg-SecondaryColor hover:bg-PrimaryColor border hover:border-SecondaryColor hover:text-SecondaryColor mt-0`}
+                          text={ads.isOnSlide ? "Remove " : "Add "}
+                          classname={`bg-SecondaryColor min-w-[100px] hover:bg-PrimaryColor border hover:border-SecondaryColor hover:text-SecondaryColor mt-0`}
                         ></BtnWithICon>
                       </button>
                     </td>

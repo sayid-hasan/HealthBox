@@ -124,11 +124,17 @@ const ManagePayments = () => {
                       <span>{payment.status}</span>
                     </td>
                     <td className="text-[#737373] text-base flex justify-center items-center">
-                      <button onClick={(event) => handleChange(event, payment)}>
+                      <button
+                        disabled={payment?.status === "paid"}
+                        onClick={(event) => handleChange(event, payment)}
+                        className="disabled:bg-opacity-50"
+                      >
                         <BtnWithICon
-                          text={"aceept"}
+                          text={"Aceept"}
                           icon={<FcPaid />}
-                          classname={`bg-SecondaryColor hover:bg-PrimaryColor border hover:border-SecondaryColor hover:text-SecondaryColor mt-0`}
+                          classname={`${
+                            payment?.status === "paid" && "bg-opacity-50"
+                          } bg-SecondaryColor hover:bg-PrimaryColor border hover:border-SecondaryColor hover:text-SecondaryColor mt-0`}
                         ></BtnWithICon>
                       </button>
                     </td>
