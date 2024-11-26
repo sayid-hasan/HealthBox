@@ -1,25 +1,22 @@
+import { useContext, useEffect, useState } from "react";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { AuthContext } from "../../../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
-
-import { useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { IKContext, IKUpload } from "imagekitio-react";
+import BtnWithICon from "../../../../components/NormalBtns/BtnWithIcon";
+import { MdAdd } from "react-icons/md";
 
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { toast } from "react-toastify";
-import BtnWithICon from "../../../components/NormalBtns/BtnWithIcon";
-import { MdUpdate } from "react-icons/md";
-
-const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
-  console.log(categoryId);
-
+const AddMedicine = ({ modal, refetch, setModal }) => {
   const axiosSecure = useAxiosSecure();
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const { user } = useContext(AuthContext);
 
   // react form hook
   const { register, handleSubmit, watch } = useForm();
-  const [imageUrl, setImageUrl] = useState(category?.categoryImg);
+  const [imageUrl, setImageUrl] = useState(null);
   // get authentication params for image uplaod in imagekit from server
   // get authentication params for image uplaod in imagekit from server
   const authenticator = async () => {
@@ -72,31 +69,34 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
   };
 
   //   console.log(scholarship);
-  const { categoryName, categoryImg } = category;
 
   //   console.log(deadline._i);
   //   getdata from onsubmit\
   const onSubmit = async (data) => {
-    const { categoryUpdatedName } = data;
+    const {
+      name,
+
+      description,
+    } = data;
     // console.log(data);
     console.log(imageUrl);
-    const updatedData = {
-      categoryName: categoryUpdatedName,
-      categoryImg: imageUrl,
+    const productInfo = {
+      name,
+      image: imageUrl,
+
+      description,
+      sellerEmail: user?.email,
     };
-    console.log(updatedData);
-    //   update data on database as category
+    console.log(productInfo);
+    // //   add data on database as category
     try {
-      const res = await axiosSecure.put(
-        `/categories/${categoryId}`,
-        updatedData
-      );
+      const res = await axiosSecure.post(`/ask-advertisements`, productInfo);
       console.log(res.data);
-      if (res.data.modifiedCount > 0) {
+      if (res.data.insertedId) {
         Swal.fire({
-          position: "top-end",
+          position: "top-center",
           icon: "success",
-          title: "Your application has been updated",
+          title: "Your Request of ads successfully submitted",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -107,7 +107,7 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
     } catch (err) {
       console.log(err);
       Swal.fire({
-        position: "top-end",
+        position: "top-center",
         icon: "error",
         title: "Facing error",
         showConfirmButton: false,
@@ -127,14 +127,14 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
   return (
     <>
       {modal && (
-        <div className="flex justify-center w-full max-w-2xl relative">
+        <div className="flex justify-center w-full z-10 max-w-4xl relative py-5">
           {/* // <!-- Modal toggle --> */}
 
           {/* // <!-- Main modal --> */}
           <div
             id="crud-modal"
             tabIndex="-1"
-            className=" max-w-2xl mx-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 flex   z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)]"
+            className=" max-w-2xl mx-auto  overflow-y-auto overflow-x-hidden fixed top-0 right-0 flex  py-5 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)]"
           >
             <div className="relative p-2 w-full max-w-full max-h-full">
               {/* <!-- Modal content --> */}
@@ -142,7 +142,7 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
                 {/* <!-- Modal header --> */}
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                   <h3 className="text-lg font-bold text-SecondaryColor text-center w-full dark:text-white">
-                    Update Category
+                    Make a ads for your Product
                   </h3>
                   {/* close button to do set setmodal false */}
                   <button
@@ -174,33 +174,33 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
                   onSubmit={handleSubmit(onSubmit)}
                   className="flex items-center flex-col w-full "
                 >
-                  <div className="grid items-center gap-4 mb-4 grid-cols-1">
+                  <div className="grid grid-cols-1 max-w-2xl mx-auto items-center px-4 gap-4 mb-4 ">
                     {/* catgory name */}
                     <div className="font-Nunito sm:col-span-1">
                       <label
-                        htmlFor="categoryUpdatedName"
+                        htmlFor="name"
                         className="block dark:text-gray-600 text-SecondaryColor font-bold tracking-widest"
                       >
-                        Category Name
+                        Name
                       </label>
                       <input
                         type="text"
-                        name="categoryUpdatedName"
-                        id="categoryUpdatedName"
-                        defaultValue={categoryName}
-                        {...register("categoryUpdatedName")}
+                        name="name"
+                        id="name"
+                        {...register("name")}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Type Your mobile no"
+                        placeholder="Add Medicine name"
                       />
                     </div>
+
                     {/*  and photo */}
                     {/* ikimage upload */}
-                    <div className="font-Nunito sm:col-span-1 ">
+                    <div className="font-Nunito  ">
                       <label
                         htmlFor="photo"
                         className="block dark:text-gray-600 text-SecondaryColor font-bold tracking-widest"
                       >
-                        Your Image
+                        Medicine Image
                       </label>
                       <div className="flex justify-start items-center gap-1">
                         <IKContext
@@ -229,48 +229,68 @@ const UpdateModal = ({ modal, categoryId, refetch, setModal, category }) => {
                         )}
                       </div>
                     </div>
+                    {/* Description  */}
+                    <div className="font-Nunito sm:col-span-1">
+                      <label
+                        htmlFor="description"
+                        className="block dark:text-gray-600 text-SecondaryColor font-bold tracking-widest"
+                      >
+                        Description
+                      </label>
+                      <input
+                        type="text"
+                        name="description"
+                        id="description"
+                        {...register("description")}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Add description"
+                      />
+                    </div>
                   </div>
-                  <button type="submit" className=" w-full flex justify-center">
+                  <button
+                    type="submit"
+                    className=" col-span-2 w-full flex justify-center mb-7 md:px-7 "
+                  >
                     <BtnWithICon
-                      text={`Update`}
-                      classname={`hover:text-SecondaryColor hover:border-SecondaryColor  border hover:bg-PrimaryColor flex-1 max-w-`}
-                      icon={<MdUpdate></MdUpdate>}
+                      text={`Add`}
+                      classname={`hover:text-SecondaryColor hover:border-SecondaryColor  border hover:bg-PrimaryColor flex-1 max-w-full `}
+                      icon={<MdAdd></MdAdd>}
                     ></BtnWithICon>
                   </button>
                 </form>
               </div>
+              {/* progress bar */}
+              {progress !== 0 && progress !== 100 && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
+                    style={{
+                      "--value": progress,
+                      "--size": "5rem",
+                      "--thickness": "10px",
+                    }}
+                    role="progressbar"
+                  >
+                    {progress}%
+                  </div>
+                </div>
+              )}
+              {/* loading */}
+              {uploading && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
+                    role=""
+                  ></div>
+                </div>
+              )}
             </div>
           </div>
-          {/* progress bar */}
-          {progress !== 0 && progress !== 100 && (
-            <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
-              {" "}
-              <div
-                className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
-                style={{
-                  "--value": progress,
-                  "--size": "5rem",
-                  "--thickness": "10px",
-                }}
-                role="progressbar"
-              >
-                {progress}%
-              </div>
-            </div>
-          )}
-          {/* loading */}
-          {uploading && (
-            <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
-              {" "}
-              <div
-                className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
-                role=""
-              ></div>
-            </div>
-          )}
         </div>
       )}
     </>
   );
 };
-export default UpdateModal;
+export default AddMedicine;

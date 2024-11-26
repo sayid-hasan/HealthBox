@@ -388,7 +388,7 @@ const SignUp = () => {
               className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
               style={{
                 "--value": progress,
-                "--size": "7rem",
+                "--size": "5rem",
                 "--thickness": "10px",
               }}
               role="progressbar"

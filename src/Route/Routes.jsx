@@ -19,6 +19,8 @@ import ManagePayments from "../Pages/Dashboard/ManagePayments/ManagePayments";
 import ManageAds from "../Pages/Dashboard/ManageAds/ManageAds";
 import ManageMedicines from "../Pages/Dashboard/Seller/ManageMedicines/ManageMedicines";
 import SellerProfile from "../Pages/Dashboard/Seller/SellerProfile/SellerProfile";
+import PaymentHistory from "../Pages/Dashboard/Seller/PaymentHistory/PaymentHistory";
+import AskAds from "../Pages/Dashboard/Seller/AskAds/AskAds";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +104,14 @@ const router = createBrowserRouter([
       {
         path: "sellerprofile",
         element: <SellerProfile></SellerProfile>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "askAddvertisement",
+        element: <AskAds></AskAds>,
       },
     ],
   },

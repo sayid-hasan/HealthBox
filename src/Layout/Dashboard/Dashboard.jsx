@@ -20,7 +20,7 @@ import {
   FaSchool,
   FaUsers,
 } from "react-icons/fa";
-import { MdOutlinePayment } from "react-icons/md";
+import { MdAdsClick, MdOutlinePayment, MdPayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 
@@ -223,13 +223,13 @@ const Dashboard = () => {
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/*allappliedApplications */}
+            {/*Payment History */}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/appliedscholarships"
+                to="/dashboard/paymentHistory"
               >
                 <ListItemButton
                   sx={{
@@ -239,21 +239,21 @@ const Dashboard = () => {
                   }}
                 >
                   <span className="text-2xl">
-                    <FaBook></FaBook>
+                    <MdPayment></MdPayment>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    All Applied Applications
+                    Payment History
                   </span>
                 </ListItemButton>
               </NavLink>
             </ListItem>
-            {/* All/manage Reviews*/}
+            {/* Ask for advertisements*/}
             <ListItem>
               <NavLink
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/dashboard/allreviews"
+                to="/dashboard/askAddvertisement"
               >
                 <ListItemButton
                   sx={{
@@ -263,34 +263,10 @@ const Dashboard = () => {
                   }}
                 >
                   <span className="text-2xl">
-                    <FaUsers></FaUsers>
+                    <MdAdsClick></MdAdsClick>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    All Reviews
-                  </span>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            {/* Add schoalrship */}
-            <ListItem>
-              <NavLink
-                style={({ isActive }) => {
-                  return isActive ? { color: "white" } : {};
-                }}
-                to="/dashboard/addscholarship"
-              >
-                <ListItemButton
-                  sx={{
-                    display: "flex",
-                    gap: "15px",
-                    textDecoration: "uppercase",
-                  }}
-                >
-                  <span className="text-2xl">
-                    <FaSchool></FaSchool>
-                  </span>
-                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    add Schoalarship
+                    Ask for advertisements
                   </span>
                 </ListItemButton>
               </NavLink>

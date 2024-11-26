@@ -371,34 +371,34 @@ const AddMedicine = ({ modal, refetch, setModal }) => {
                   </button>
                 </form>
               </div>
-            </div>
-            {/* progress bar */}
-            {progress !== 0 && progress !== 100 && (
-              <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
-                {" "}
-                <div
-                  className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
-                  style={{
-                    "--value": progress,
-                    "--size": "7rem",
-                    "--thickness": "10px",
-                  }}
-                  role="progressbar"
-                >
-                  {progress}%
+              {/* progress bar */}
+              {progress !== 0 && progress !== 100 && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="radial-progress bg-PrimaryColor text-SecondaryColor border-PrimaryColor font-bold border-4"
+                    style={{
+                      "--value": progress,
+                      "--size": "5rem",
+                      "--thickness": "10px",
+                    }}
+                    role="progressbar"
+                  >
+                    {progress}%
+                  </div>
                 </div>
-              </div>
-            )}
-            {/* loading */}
-            {uploading && (
-              <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
-                {" "}
-                <div
-                  className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
-                  role=""
-                ></div>
-              </div>
-            )}
+              )}
+              {/* loading */}
+              {uploading && (
+                <div className=" absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center z-10000 backdrop-blur-sm">
+                  {" "}
+                  <div
+                    className="loading loading-bars loading-lg bg-SecondaryColor  border-PrimaryColor font-bold border-4"
+                    role=""
+                  ></div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
