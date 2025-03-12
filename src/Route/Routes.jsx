@@ -22,8 +22,9 @@ import SellerProfile from "../Pages/Dashboard/Seller/SellerProfile/SellerProfile
 import PaymentHistory from "../Pages/Dashboard/Seller/PaymentHistory/PaymentHistory";
 import AskAds from "../Pages/Dashboard/Seller/AskAds/AskAds";
 import UserPaymentHistory from "../Pages/Dashboard/User/PaymentHistory/PaymentHistory";
-import AdminRoute from "./SellerRoute";
+
 import SellerRoute from "./SellerRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,7 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage></ErrorPage>,
     children: [
-      // dashboard api need to relocate after creating dashboard layout
+      //  dashboard api need to relocate after creating dashboard layout
       {
         path: "admin",
         element: (
@@ -140,7 +141,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      // seller apis
+      //  seller apis
       {
         path: "managemedicines",
         element: (
@@ -173,7 +174,7 @@ const router = createBrowserRouter([
           </SellerRoute>
         ),
       },
-      // user
+      //  user
       {
         path: "userPaymentHistory",
         element: (

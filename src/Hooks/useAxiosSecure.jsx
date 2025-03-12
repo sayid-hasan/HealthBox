@@ -12,29 +12,29 @@ const useAxiosSecure = () => {
   const { logOutUser } = useContext(AuthContext);
   // request interceptor to send headers in every api request
   // old
-  // axiosSecure.interceptors.request.use(
-  //   function (request) {
-  //     const token = localStorage.getItem("access-token");
-  //     // Edit request config
-  //     console.log("hitting in interceptror", token);
-  //     request.headers.authorization = `Bearer ${token}`;
-  //     return request;
-  //   },
-  //   (error) => {
-  //     return Promise.reject(error);
-  //   }
-  // );
-  // new
   axiosSecure.interceptors.request.use(
-    async function (config) {
+    function (request) {
       const token = localStorage.getItem("access-token");
-      config.headers.authorization = `Bearer ${token}`;
-      return config;
+      // Edit request config
+      console.log("hitting in interceptror", token);
+      request.headers.authorization = `Bearer ${token}`;
+      return request;
     },
-    function (error) {
+    (error) => {
       return Promise.reject(error);
     }
   );
+  // new
+  // axiosSecure.interceptors.request.use(
+  //   async function (config) {
+  //     const token = localStorage.getItem("access-token");
+  //     config.headers.authorization = `Bearer ${token}`;
+  //     return config;
+  //   },
+  //   function (error) {
+  //     return Promise.reject(error);
+  //   }
+  // );
   // resposne interceptor
   // axiosSecure.interceptors.response.use(
   //   function (response) {
