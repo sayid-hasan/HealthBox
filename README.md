@@ -27,27 +27,22 @@ HealthBox is a **full-stack e-commerce platform** designed for online medicine s
 ### 🔹 Landing Page
 ![Landing Page](https://ik.imagekit.io/sayidImage34/healthBox%20landing%20page.png?updatedAt=1741975714051)
 
-### 🔹 Login Page
-![Login Page](https://imgur.com/GgEcKmy)
 
 ### 🔹 Registration Page
-![Registration Page](https://imgur.com/0nOo1ZG)
+![Registration Page](https://ik.imagekit.io/sayidImage34/HealthBoxRegPage.png?updatedAt=1741975708062)
 
-### 🔹 Checkout Page
-![Checkout Page](path/to/checkout-page-image)
 
 ### 🔹 User Dashboard
 ![User Dashboard](https://imgur.com/TrXrNXi)
 
 ### 🔹 Admin Dashboard
-![Admin Dashboard-sales_report](https://imgur.com/N1QyrhA)
-![Admin Dashboard users_management](https://imgur.com/q5YZS9X)
+![Admin Dashboard-sales_report](https://ik.imagekit.io/sayidImage34/HealthBox_admin_sales_report.png?updatedAt=1741975707622)
 
 ### 🔹 Seller Dashboard
-![Seller Dashboard](https://imgur.com/s3Zmd4i)
+![Seller Dashboard](https://ik.imagekit.io/sayidImage34/sellerPro4.png?updatedAt=1741975707638)
 
 ### 🔹 Cart Page
-![Cart Page](https://imgur.com/a/7ZFwWSJ)
+![Cart Page](https://ik.imagekit.io/sayidImage34/modified_image%20(4).png?updatedAt=1741975707626)
 
 
 ## 🛠️ Tech Stack
