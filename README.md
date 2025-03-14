@@ -33,7 +33,7 @@ HealthBox is a **full-stack e-commerce platform** designed for online medicine s
 
 
 ### 🔹 User Dashboard
-![User Dashboard](https://imgur.com/TrXrNXi)
+![User Dashboard](https://ik.imagekit.io/sayidImage34/userProfileDashboard.png?updatedAt=1741975707647)
 
 ### 🔹 Admin Dashboard
 ![Admin Dashboard-sales_report](https://ik.imagekit.io/sayidImage34/HealthBox_admin_sales_report.png?updatedAt=1741975707622)
@@ -97,5 +97,5 @@ This project is **open-source** and available under the MIT License.
 ### 📩 Connect with Me
 If you have any questions or want to collaborate, feel free to reach out!
 
-🔗 **GitHub:** [yourgithub](https://github.com/sayid-hasan)  
-🔗 **LinkedIn:** [yourlinkedin](https://linkedin.com/in/mohammed-syed-hasan)
+🔗 **GitHub:** [Sayid Hasan](https://github.com/sayid-hasan)  
+🔗 **LinkedIn:** [Mohammad Syed Hasan](https://linkedin.com/in/mohammed-syed-hasan)
