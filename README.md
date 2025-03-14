@@ -25,7 +25,7 @@ HealthBox is a **full-stack e-commerce platform** designed for online medicine s
 ## 🖼️ Screenshots
 
 ### 🔹 Landing Page
-![Landing Page](https://imgur.com/wQi1CGx)
+![Landing Page](https://ik.imagekit.io/sayidImage34/healthBox%20landing%20page.png?updatedAt=1741975714051)
 
 ### 🔹 Login Page
 ![Login Page](https://imgur.com/GgEcKmy)
@@ -85,7 +85,7 @@ HealthBox is a **full-stack e-commerce platform** designed for online medicine s
    ```
 
 ## 🚀 Deployment
-- Frontend: Hosted on **Vercel**
+- Frontend: Hosted on **firebase**
 - Backend: Hosted on **Vercel/Render**
 - Database: **MongoDB Atlas**
 
@@ -102,5 +102,5 @@ This project is **open-source** and available under the MIT License.
 ### 📩 Connect with Me
 If you have any questions or want to collaborate, feel free to reach out!
 
-🔗 **GitHub:** [yourgithub](https://github.com/yourusername)  
-🔗 **LinkedIn:** [yourlinkedin](https://linkedin.com/in/yourname)
+🔗 **GitHub:** [yourgithub](https://github.com/sayid-hasan)  
+🔗 **LinkedIn:** [yourlinkedin](https://linkedin.com/in/mohammed-syed-hasan)
